@@ -1,0 +1,33 @@
+@page
+@model HardwareStore.Web.Pages.Settings.IndexModel
+@{
+    ViewData["Title"] = "Settings";
+}
+
+<section class="panel">
+    <div class="panel-header">
+        <div>
+            <h2>Application settings</h2>
+            <p class="muted">Store details used by receipts and reports.</p>
+        </div>
+    </div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Key</th>
+                <th>Value</th>
+                <th>Description</th>
+            </tr>
+        </thead>
+        <tbody>
+        @foreach (var setting in Model.Settings)
+        {
+            <tr>
+                <td>@setting.Key</td>
+                <td>@setting.Value</td>
+                <td>@setting.Description</td>
+            </tr>
+        }
+        </tbody>
+    </table>
+</section>

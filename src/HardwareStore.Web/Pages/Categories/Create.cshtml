@@ -1,0 +1,41 @@
+@page
+@model HardwareStore.Web.Pages.Categories.CreateModel
+@{
+    ViewData["Title"] = "Create Category";
+}
+
+<section class="panel">
+    <div class="panel-header">
+        <div>
+            <h2>New category</h2>
+            <p class="muted">Keep product groupings simple and readable.</p>
+        </div>
+    </div>
+    <form method="post" class="form-grid">
+        <div class="field">
+            <label asp-for="Input.Name"></label>
+            <input asp-for="Input.Name" />
+        </div>
+        <div class="field">
+            <label asp-for="Input.NameMm"></label>
+            <input asp-for="Input.NameMm" class="mm-text" />
+        </div>
+        <div class="field" style="grid-column: 1 / -1;">
+            <label asp-for="Input.Description"></label>
+            <textarea asp-for="Input.Description"></textarea>
+        </div>
+        <div class="field">
+            <label>
+                <input asp-for="Input.IsActive" type="checkbox" />
+                Active
+            </label>
+        </div>
+        @if (!string.IsNullOrWhiteSpace(Model.ErrorMessage))
+        {
+            <p class="error-text" style="grid-column: 1 / -1;">@Model.ErrorMessage</p>
+        }
+        <div style="grid-column: 1 / -1;">
+            <button type="submit">Save category</button>
+        </div>
+    </form>
+</section>

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Family Hardware Store</title>
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+</head>
+<body>
+    <div class="app-shell">
+        <aside class="sidebar">
+            <a class="brand-mark" asp-page="/Index">
+                <span class="brand-kicker">Family</span>
+                <strong>Hardware Store</strong>
+            </a>
+            <nav class="nav-stack">
+                <a asp-page="/Index">Dashboard</a>
+                <a asp-page="/Products/Index">Products</a>
+                <a asp-page="/Sales/New">Sales / POS</a>
+                <a asp-page="/Sales/Reprint">Reprint Receipt</a>
+                <a asp-page="/Reports/DailySales">Reports</a>
+                @if (User.IsInRole("Admin"))
+                {
+                    <a asp-page="/Categories/Index">Categories</a>
+                    <a asp-page="/Suppliers/Index">Suppliers</a>
+                    <a asp-page="/Purchases/Index">Purchases</a>
+                    <a asp-page="/Settings/Index">Settings</a>
+                    <a asp-page="/Backup/Index">Backup</a>
+                }
+            </nav>
+        </aside>
+        <div class="main-shell">
+            <header class="topbar">
+                <div>
+                    <p class="topbar-label">Local-first operations</p>
+                    <h1>@ViewData["Title"]</h1>
+                </div>
+                <div class="topbar-user">
+                    <span>@User.Identity?.Name</span>
+                    @if (User.Identity?.IsAuthenticated ?? false)
+                    {
+                        <form method="post" asp-page="/Account/Logout">
+                            <button type="submit" class="button secondary">Sign out</button>
+                        </form>
+                    }
+                </div>
+            </header>
+            <main class="content-shell">
+                @RenderBody()
+            </main>
+        </div>
+    </div>
+
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

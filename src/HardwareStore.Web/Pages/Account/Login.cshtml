@@ -1,0 +1,44 @@
+@page
+@model HardwareStore.Web.Pages.Account.LoginModel
+@{
+    Layout = null;
+    ViewData["Title"] = "Login";
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login - Family Hardware Store</title>
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+</head>
+<body>
+    <div class="auth-wrap">
+        <div class="auth-card">
+            <p class="eyebrow">Shop access</p>
+            <h1>Family Hardware Store</h1>
+            <p class="muted">Use the seeded admin account on first run. Username: <strong>admin</strong> Password: <strong>Admin@123</strong></p>
+
+            <form method="post" class="form-grid">
+                <div class="field" style="grid-column: 1 / -1;">
+                    <label asp-for="Input.Username"></label>
+                    <input asp-for="Input.Username" />
+                    <span asp-validation-for="Input.Username"></span>
+                </div>
+                <div class="field" style="grid-column: 1 / -1;">
+                    <label asp-for="Input.Password"></label>
+                    <input asp-for="Input.Password" type="password" />
+                    <span asp-validation-for="Input.Password"></span>
+                </div>
+                @if (!string.IsNullOrWhiteSpace(Model.ErrorMessage))
+                {
+                    <p class="error-text" style="grid-column: 1 / -1;">@Model.ErrorMessage</p>
+                }
+                <div style="grid-column: 1 / -1;">
+                    <button type="submit">Sign in</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

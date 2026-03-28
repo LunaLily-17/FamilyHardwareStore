@@ -1,0 +1,36 @@
+@page
+@model HardwareStore.Web.Pages.Suppliers.IndexModel
+@{
+    ViewData["Title"] = "Suppliers";
+}
+
+<section class="panel">
+    <div class="panel-header">
+        <div>
+            <h2>Suppliers</h2>
+            <p class="muted">Supplier management for purchasing and restocking.</p>
+        </div>
+        <a class="button" asp-page="/Suppliers/Create">Add supplier</a>
+    </div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Contact</th>
+                <th>Phone</th>
+                <th>Email</th>
+            </tr>
+        </thead>
+        <tbody>
+        @foreach (var supplier in Model.Suppliers)
+        {
+            <tr>
+                <td>@supplier.Name</td>
+                <td>@supplier.ContactPerson</td>
+                <td>@supplier.Phone</td>
+                <td>@supplier.Email</td>
+            </tr>
+        }
+        </tbody>
+    </table>
+</section>

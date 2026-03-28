@@ -1,0 +1,40 @@
+@page
+@model HardwareStore.Web.Pages.Backup.IndexModel
+@{
+    ViewData["Title"] = "Backup";
+}
+
+<section class="panel">
+    <div class="panel-header">
+        <div>
+            <h2>Database backup</h2>
+            <p class="muted">Manual backup for the local SQLite store database.</p>
+        </div>
+        <form method="post">
+            <button type="submit">Create backup</button>
+        </form>
+    </div>
+    @if (!string.IsNullOrWhiteSpace(Model.StatusMessage))
+    {
+        <p>@Model.StatusMessage</p>
+    }
+    <table class="table">
+        <thead>
+            <tr>
+                <th>File</th>
+                <th>Created</th>
+                <th>Size</th>
+            </tr>
+        </thead>
+        <tbody>
+        @foreach (var item in Model.Backups)
+        {
+            <tr>
+                <td>@item.FileName</td>
+                <td>@item.CreatedUtc.ToLocalTime()</td>
+                <td>@item.SizeBytes</td>
+            </tr>
+        }
+        </tbody>
+    </table>
+</section>

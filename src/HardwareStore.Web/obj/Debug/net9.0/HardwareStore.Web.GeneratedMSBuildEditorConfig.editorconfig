@@ -1,0 +1,119 @@
+is_global = true
+build_property.TargetFramework = net9.0
+build_property.TargetFrameworkIdentifier = .NETCoreApp
+build_property.TargetFrameworkVersion = v9.0
+build_property.TargetPlatformMinVersion = 
+build_property.UsingMicrosoftNETSdkWeb = true
+build_property.ProjectTypeGuids = 
+build_property.InvariantGlobalization = 
+build_property.PlatformNeutralAssembly = 
+build_property.EnforceExtendedAnalyzerRules = 
+build_property._SupportedPlatformList = Linux,macOS,Windows
+build_property.RootNamespace = HardwareStore.Web
+build_property.RootNamespace = HardwareStore.Web
+build_property.ProjectDir = /Users/kyiphyu/Repo/FamilyHardwareStore/FamilyHardwareStore/src/HardwareStore.Web/
+build_property.EnableComHosting = 
+build_property.EnableGeneratedComInterfaceComImportInterop = 
+build_property.RazorLangVersion = 9.0
+build_property.SupportLocalizedComponentNames = 
+build_property.GenerateRazorMetadataSourceChecksumAttributes = 
+build_property.MSBuildProjectDirectory = /Users/kyiphyu/Repo/FamilyHardwareStore/FamilyHardwareStore/src/HardwareStore.Web
+build_property._RazorSourceGeneratorDebug = 
+build_property.EffectiveAnalysisLevelStyle = 9.0
+build_property.EnableCodeStyleSeverity = 
+
+[/Users/kyiphyu/Repo/FamilyHardwareStore/FamilyHardwareStore/src/HardwareStore.Web/Pages/Account/Login.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvQWNjb3VudC9Mb2dpbi5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/kyiphyu/Repo/FamilyHardwareStore/FamilyHardwareStore/src/HardwareStore.Web/Pages/Account/Logout.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvQWNjb3VudC9Mb2dvdXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/kyiphyu/Repo/FamilyHardwareStore/FamilyHardwareStore/src/HardwareStore.Web/Pages/Backup/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvQmFja3VwL0luZGV4LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/kyiphyu/Repo/FamilyHardwareStore/FamilyHardwareStore/src/HardwareStore.Web/Pages/Categories/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvQ2F0ZWdvcmllcy9DcmVhdGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/kyiphyu/Repo/FamilyHardwareStore/FamilyHardwareStore/src/HardwareStore.Web/Pages/Categories/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvQ2F0ZWdvcmllcy9JbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/kyiphyu/Repo/FamilyHardwareStore/FamilyHardwareStore/src/HardwareStore.Web/Pages/Error.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvRXJyb3IuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/kyiphyu/Repo/FamilyHardwareStore/FamilyHardwareStore/src/HardwareStore.Web/Pages/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/kyiphyu/Repo/FamilyHardwareStore/FamilyHardwareStore/src/HardwareStore.Web/Pages/Privacy.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvUHJpdmFjeS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/kyiphyu/Repo/FamilyHardwareStore/FamilyHardwareStore/src/HardwareStore.Web/Pages/Products/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvUHJvZHVjdHMvQ3JlYXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/kyiphyu/Repo/FamilyHardwareStore/FamilyHardwareStore/src/HardwareStore.Web/Pages/Products/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvUHJvZHVjdHMvSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/kyiphyu/Repo/FamilyHardwareStore/FamilyHardwareStore/src/HardwareStore.Web/Pages/Purchases/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvUHVyY2hhc2VzL0NyZWF0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/kyiphyu/Repo/FamilyHardwareStore/FamilyHardwareStore/src/HardwareStore.Web/Pages/Purchases/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvUHVyY2hhc2VzL0RldGFpbHMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/kyiphyu/Repo/FamilyHardwareStore/FamilyHardwareStore/src/HardwareStore.Web/Pages/Purchases/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvUHVyY2hhc2VzL0luZGV4LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/kyiphyu/Repo/FamilyHardwareStore/FamilyHardwareStore/src/HardwareStore.Web/Pages/Reports/DailySales.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvUmVwb3J0cy9EYWlseVNhbGVzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/kyiphyu/Repo/FamilyHardwareStore/FamilyHardwareStore/src/HardwareStore.Web/Pages/Sales/New.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvU2FsZXMvTmV3LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/kyiphyu/Repo/FamilyHardwareStore/FamilyHardwareStore/src/HardwareStore.Web/Pages/Sales/Receipt.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvU2FsZXMvUmVjZWlwdC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/kyiphyu/Repo/FamilyHardwareStore/FamilyHardwareStore/src/HardwareStore.Web/Pages/Sales/Reprint.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvU2FsZXMvUmVwcmludC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/kyiphyu/Repo/FamilyHardwareStore/FamilyHardwareStore/src/HardwareStore.Web/Pages/Settings/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvU2V0dGluZ3MvSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/kyiphyu/Repo/FamilyHardwareStore/FamilyHardwareStore/src/HardwareStore.Web/Pages/Shared/_ValidationScriptsPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvU2hhcmVkL19WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/kyiphyu/Repo/FamilyHardwareStore/FamilyHardwareStore/src/HardwareStore.Web/Pages/Suppliers/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvU3VwcGxpZXJzL0NyZWF0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/kyiphyu/Repo/FamilyHardwareStore/FamilyHardwareStore/src/HardwareStore.Web/Pages/Suppliers/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvU3VwcGxpZXJzL0luZGV4LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/kyiphyu/Repo/FamilyHardwareStore/FamilyHardwareStore/src/HardwareStore.Web/Pages/_ViewImports.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvX1ZpZXdJbXBvcnRzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/kyiphyu/Repo/FamilyHardwareStore/FamilyHardwareStore/src/HardwareStore.Web/Pages/_ViewStart.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvX1ZpZXdTdGFydC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/kyiphyu/Repo/FamilyHardwareStore/FamilyHardwareStore/src/HardwareStore.Web/Pages/Shared/_Layout.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvU2hhcmVkL19MYXlvdXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = b-if9dkmoexy

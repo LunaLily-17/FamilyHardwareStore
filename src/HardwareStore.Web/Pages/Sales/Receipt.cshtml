@@ -1,0 +1,81 @@
+@page "{receiptNumber}"
+@model HardwareStore.Web.Pages.Sales.ReceiptModel
+@{
+    ViewData["Title"] = "Receipt";
+}
+
+@if (Model.Receipt is null)
+{
+    <section class="panel">
+        <h2>Receipt not found</h2>
+    </section>
+}
+else
+{
+    <section class="panel receipt-card">
+        <div class="panel-header no-print">
+            <div>
+                <h2>Receipt @Model.Receipt.ReceiptNumber</h2>
+                <p class="muted">Browser-print friendly thermal layout.</p>
+            </div>
+            <div class="topbar-user">
+                <button type="button" onclick="window.print()">Print</button>
+            </div>
+        </div>
+
+        <div class="receipt-sheet">
+            <div class="receipt-header">
+                <h2>@Model.ShopName</h2>
+                @if (!string.IsNullOrWhiteSpace(Model.ShopNameMm))
+                {
+                    <p class="mm-text">@Model.ShopNameMm</p>
+                }
+                <p>@Model.ShopAddress</p>
+                <p>@Model.ShopPhone</p>
+            </div>
+
+            <div class="receipt-meta">
+                <p>Receipt: @Model.Receipt.ReceiptNumber</p>
+                <p>Date: @Model.Receipt.SaleDateUtc.ToLocalTime()</p>
+                <p>Cashier: @Model.Receipt.CashierName</p>
+            </div>
+
+            <table class="table receipt-table">
+                <thead>
+                    <tr>
+                        <th>Item</th>
+                        <th>Qty</th>
+                        <th>Price</th>
+                        <th>Total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                @foreach (var line in Model.Receipt.Items)
+                {
+                    <tr>
+                        <td>
+                            <div>@line.ProductName</div>
+                            @if (!string.IsNullOrWhiteSpace(line.ProductNameMm))
+                            {
+                                <div class="mm-text muted">@line.ProductNameMm</div>
+                            }
+                        </td>
+                        <td>@line.Quantity</td>
+                        <td>@line.UnitPrice.ToString("C")</td>
+                        <td>@line.LineTotal.ToString("C")</td>
+                    </tr>
+                }
+                </tbody>
+            </table>
+
+            <div class="receipt-total">
+                <strong>Total: @Model.Receipt.TotalAmount.ToString("C")</strong>
+            </div>
+
+            @if (!string.IsNullOrWhiteSpace(Model.ReceiptFooter))
+            {
+                <p class="receipt-footer">@Model.ReceiptFooter</p>
+            }
+        </div>
+    </section>
+}

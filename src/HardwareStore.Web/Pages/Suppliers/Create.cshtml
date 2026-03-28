@@ -1,0 +1,43 @@
+@page
+@model HardwareStore.Web.Pages.Suppliers.CreateModel
+@{
+    ViewData["Title"] = "Create Supplier";
+}
+
+<section class="panel">
+    <div class="panel-header">
+        <div>
+            <h2>New supplier</h2>
+            <p class="muted">Core supplier details for purchasing workflows.</p>
+        </div>
+    </div>
+    <form method="post" class="form-grid">
+        <div class="field">
+            <label asp-for="Input.Name"></label>
+            <input asp-for="Input.Name" />
+        </div>
+        <div class="field">
+            <label asp-for="Input.ContactPerson"></label>
+            <input asp-for="Input.ContactPerson" />
+        </div>
+        <div class="field">
+            <label asp-for="Input.Phone"></label>
+            <input asp-for="Input.Phone" />
+        </div>
+        <div class="field">
+            <label asp-for="Input.Email"></label>
+            <input asp-for="Input.Email" />
+        </div>
+        <div class="field" style="grid-column: 1 / -1;">
+            <label asp-for="Input.Address"></label>
+            <textarea asp-for="Input.Address"></textarea>
+        </div>
+        @if (!string.IsNullOrWhiteSpace(Model.ErrorMessage))
+        {
+            <p class="error-text" style="grid-column: 1 / -1;">@Model.ErrorMessage</p>
+        }
+        <div style="grid-column: 1 / -1;">
+            <button type="submit">Save supplier</button>
+        </div>
+    </form>
+</section>

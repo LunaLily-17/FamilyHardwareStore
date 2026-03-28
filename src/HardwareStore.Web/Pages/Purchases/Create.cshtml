@@ -1,0 +1,47 @@
+@page
+@model HardwareStore.Web.Pages.Purchases.CreateModel
+@{
+    ViewData["Title"] = "Create Purchase";
+}
+
+<section class="panel">
+    <div class="panel-header">
+        <div>
+            <h2>New purchase</h2>
+            <p class="muted">A practical starter form for restocking a single product line at a time.</p>
+        </div>
+    </div>
+    <form method="post" class="form-grid">
+        <div class="field">
+            <label asp-for="Input.SupplierId"></label>
+            <select asp-for="Input.SupplierId" asp-items="Model.SupplierOptions"></select>
+        </div>
+        <div class="field">
+            <label asp-for="Input.ProductId"></label>
+            <select asp-for="Input.ProductId" asp-items="Model.ProductOptions"></select>
+        </div>
+        <div class="field">
+            <label asp-for="Input.Quantity"></label>
+            <input asp-for="Input.Quantity" />
+        </div>
+        <div class="field">
+            <label asp-for="Input.UnitCost"></label>
+            <input asp-for="Input.UnitCost" />
+        </div>
+        <div class="field">
+            <label asp-for="Input.TaxAmount"></label>
+            <input asp-for="Input.TaxAmount" />
+        </div>
+        <div class="field" style="grid-column: 1 / -1;">
+            <label asp-for="Input.Notes"></label>
+            <textarea asp-for="Input.Notes"></textarea>
+        </div>
+        @if (!string.IsNullOrWhiteSpace(Model.ErrorMessage))
+        {
+            <p class="error-text" style="grid-column: 1 / -1;">@Model.ErrorMessage</p>
+        }
+        <div style="grid-column: 1 / -1;">
+            <button type="submit">Post purchase</button>
+        </div>
+    </form>
+</section>

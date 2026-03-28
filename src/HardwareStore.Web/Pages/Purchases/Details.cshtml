@@ -1,0 +1,54 @@
+@page "{id:guid}"
+@model HardwareStore.Web.Pages.Purchases.DetailsModel
+@{
+    ViewData["Title"] = "Purchase Details";
+}
+
+<section class="panel">
+    @if (Model.Purchase is null)
+    {
+        <h2>Purchase not found</h2>
+    }
+    else
+    {
+        <div class="panel-header">
+            <div>
+                <h2>@Model.Purchase.PurchaseNumber</h2>
+                <p class="muted">@Model.Purchase.SupplierName</p>
+            </div>
+        </div>
+        <table class="table">
+            <tbody>
+                <tr><th>Date</th><td>@Model.Purchase.PurchaseDateUtc.ToLocalTime()</td></tr>
+                <tr><th>Status</th><td>@Model.Purchase.Status</td></tr>
+                <tr><th>Subtotal</th><td>@Model.Purchase.Subtotal.ToString("C")</td></tr>
+                <tr><th>Tax</th><td>@Model.Purchase.TaxAmount.ToString("C")</td></tr>
+                <tr><th>Total</th><td>@Model.Purchase.TotalAmount.ToString("C")</td></tr>
+                <tr><th>Notes</th><td>@Model.Purchase.Notes</td></tr>
+            </tbody>
+        </table>
+
+        <h3>Lines</h3>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Product</th>
+                    <th>Qty</th>
+                    <th>Unit cost</th>
+                    <th>Total</th>
+                </tr>
+            </thead>
+            <tbody>
+            @foreach (var line in Model.Purchase.Items)
+            {
+                <tr>
+                    <td>@line.ProductName</td>
+                    <td>@line.Quantity</td>
+                    <td>@line.UnitCost.ToString("C")</td>
+                    <td>@line.LineTotal.ToString("C")</td>
+                </tr>
+            }
+            </tbody>
+        </table>
+    }
+</section>

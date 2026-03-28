@@ -1,0 +1,11 @@
+/Users/kyiphyu/Repo/FamilyHardwareStore/FamilyHardwareStore/src/HardwareStore.Domain/bin/Debug/net9.0/HardwareStore.Domain.deps.json
+/Users/kyiphyu/Repo/FamilyHardwareStore/FamilyHardwareStore/src/HardwareStore.Domain/bin/Debug/net9.0/HardwareStore.Domain.dll
+/Users/kyiphyu/Repo/FamilyHardwareStore/FamilyHardwareStore/src/HardwareStore.Domain/bin/Debug/net9.0/HardwareStore.Domain.pdb
+/Users/kyiphyu/Repo/FamilyHardwareStore/FamilyHardwareStore/src/HardwareStore.Domain/obj/Debug/net9.0/HardwareStore.Domain.GeneratedMSBuildEditorConfig.editorconfig
+/Users/kyiphyu/Repo/FamilyHardwareStore/FamilyHardwareStore/src/HardwareStore.Domain/obj/Debug/net9.0/HardwareStore.Domain.AssemblyInfoInputs.cache
+/Users/kyiphyu/Repo/FamilyHardwareStore/FamilyHardwareStore/src/HardwareStore.Domain/obj/Debug/net9.0/HardwareStore.Domain.AssemblyInfo.cs
+/Users/kyiphyu/Repo/FamilyHardwareStore/FamilyHardwareStore/src/HardwareStore.Domain/obj/Debug/net9.0/HardwareStore.Domain.csproj.CoreCompileInputs.cache
+/Users/kyiphyu/Repo/FamilyHardwareStore/FamilyHardwareStore/src/HardwareStore.Domain/obj/Debug/net9.0/HardwareStore.Domain.dll
+/Users/kyiphyu/Repo/FamilyHardwareStore/FamilyHardwareStore/src/HardwareStore.Domain/obj/Debug/net9.0/refint/HardwareStore.Domain.dll
+/Users/kyiphyu/Repo/FamilyHardwareStore/FamilyHardwareStore/src/HardwareStore.Domain/obj/Debug/net9.0/HardwareStore.Domain.pdb
+/Users/kyiphyu/Repo/FamilyHardwareStore/FamilyHardwareStore/src/HardwareStore.Domain/obj/Debug/net9.0/ref/HardwareStore.Domain.dll

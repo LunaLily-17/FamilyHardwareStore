@@ -1,0 +1,23 @@
+@page
+@model HardwareStore.Web.Pages.Sales.ReprintModel
+@{
+    ViewData["Title"] = "Reprint Receipt";
+}
+
+<section class="panel">
+    <div class="panel-header">
+        <div>
+            <h2>Reprint receipt</h2>
+            <p class="muted">Find a receipt by receipt number and open the print view.</p>
+        </div>
+    </div>
+    <form method="post" class="form-grid">
+        <div class="field">
+            <label asp-for="ReceiptNumber"></label>
+            <input asp-for="ReceiptNumber" />
+        </div>
+        <div style="align-self: end;">
+            <button type="submit">Open receipt</button>
+        </div>
+    </form>
+</section>

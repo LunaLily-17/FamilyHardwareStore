@@ -1,0 +1,40 @@
+@page
+@model HardwareStore.Web.Pages.Categories.IndexModel
+@{
+    ViewData["Title"] = "Categories";
+}
+
+<section class="panel">
+    <div class="panel-header">
+        <div>
+            <h2>Categories</h2>
+            <p class="muted">Product groupings used across catalog and reports.</p>
+        </div>
+        <a class="button" asp-page="/Categories/Create">Add category</a>
+    </div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Active</th>
+            </tr>
+        </thead>
+        <tbody>
+        @foreach (var category in Model.Categories)
+        {
+            <tr>
+                <td>
+                    <div>@category.Name</div>
+                    @if (!string.IsNullOrWhiteSpace(category.NameMm))
+                    {
+                        <div class="mm-text muted">@category.NameMm</div>
+                    }
+                </td>
+                <td>@category.Description</td>
+                <td>@(category.IsActive ? "Yes" : "No")</td>
+            </tr>
+        }
+        </tbody>
+    </table>
+</section>

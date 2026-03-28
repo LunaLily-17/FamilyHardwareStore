@@ -1,0 +1,52 @@
+@page
+@model HardwareStore.Web.Pages.Products.IndexModel
+@{
+    ViewData["Title"] = "Products";
+}
+
+<section class="panel">
+    <div class="panel-header">
+        <div>
+            <h2>Product catalog</h2>
+            <p class="muted">Core stock, barcode, price, and reorder data.</p>
+        </div>
+        <a class="button" asp-page="/Products/Create">Add product</a>
+    </div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>SKU</th>
+                <th>Category</th>
+                <th>Unit</th>
+                <th>Price</th>
+                <th>Stock</th>
+            </tr>
+        </thead>
+        <tbody>
+        @foreach (var product in Model.Products)
+        {
+            <tr>
+                <td>
+                    <div>@product.Name</div>
+                    @if (!string.IsNullOrWhiteSpace(product.NameMm))
+                    {
+                        <div class="mm-text muted">@product.NameMm</div>
+                    }
+                </td>
+                <td>@product.Sku</td>
+                <td>
+                    <div>@product.CategoryName</div>
+                    @if (!string.IsNullOrWhiteSpace(product.CategoryNameMm))
+                    {
+                        <div class="mm-text muted">@product.CategoryNameMm</div>
+                    }
+                </td>
+                <td>@product.UnitType</td>
+                <td>@product.SalePrice.ToString("C")</td>
+                <td>@product.StockOnHand</td>
+            </tr>
+        }
+        </tbody>
+    </table>
+</section>

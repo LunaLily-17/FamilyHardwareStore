@@ -1,0 +1,40 @@
+@page
+@model HardwareStore.Web.Pages.Purchases.IndexModel
+@{
+    ViewData["Title"] = "Purchases";
+}
+
+<section class="panel">
+    <div class="panel-header">
+        <div>
+            <h2>Purchases</h2>
+            <p class="muted">Supplier purchase history and stock intake.</p>
+        </div>
+        <a class="button" asp-page="/Purchases/Create">New purchase</a>
+    </div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Number</th>
+                <th>Supplier</th>
+                <th>Date</th>
+                <th>Status</th>
+                <th>Total</th>
+                <th>Items</th>
+            </tr>
+        </thead>
+        <tbody>
+        @foreach (var purchase in Model.Purchases)
+        {
+            <tr>
+                <td><a asp-page="/Purchases/Details" asp-route-id="@purchase.Id">@purchase.PurchaseNumber</a></td>
+                <td>@purchase.SupplierName</td>
+                <td>@purchase.PurchaseDateUtc.ToLocalTime()</td>
+                <td>@purchase.Status</td>
+                <td>@purchase.TotalAmount.ToString("C")</td>
+                <td>@purchase.ItemCount</td>
+            </tr>
+        }
+        </tbody>
+    </table>
+</section>

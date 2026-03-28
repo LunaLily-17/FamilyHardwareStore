@@ -1,0 +1,722 @@
+2026-03-28T03:30:04.4153820Z [Information] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (4ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+PRAGMA journal_mode = 'wal';
+2026-03-28T03:30:04.4849870Z [Information] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (1ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+CREATE TABLE "AppSettings" (
+    "Id" TEXT NOT NULL CONSTRAINT "PK_AppSettings" PRIMARY KEY,
+    "Key" TEXT NOT NULL,
+    "Value" TEXT NOT NULL,
+    "Description" TEXT NULL,
+    "CreatedUtc" TEXT NOT NULL,
+    "UpdatedUtc" TEXT NULL
+);
+2026-03-28T03:30:04.4860430Z [Information] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (0ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+CREATE TABLE "Categories" (
+    "Id" TEXT NOT NULL CONSTRAINT "PK_Categories" PRIMARY KEY,
+    "Name" TEXT NOT NULL,
+    "Description" TEXT NULL,
+    "IsActive" INTEGER NOT NULL,
+    "CreatedUtc" TEXT NOT NULL,
+    "UpdatedUtc" TEXT NULL
+);
+2026-03-28T03:30:04.4861950Z [Information] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (0ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+CREATE TABLE "Suppliers" (
+    "Id" TEXT NOT NULL CONSTRAINT "PK_Suppliers" PRIMARY KEY,
+    "Name" TEXT NOT NULL,
+    "ContactPerson" TEXT NULL,
+    "Phone" TEXT NULL,
+    "Address" TEXT NULL,
+    "Email" TEXT NULL,
+    "IsActive" INTEGER NOT NULL,
+    "CreatedUtc" TEXT NOT NULL,
+    "UpdatedUtc" TEXT NULL
+);
+2026-03-28T03:30:04.4862950Z [Information] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (0ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+CREATE TABLE "Users" (
+    "Id" TEXT NOT NULL CONSTRAINT "PK_Users" PRIMARY KEY,
+    "Username" TEXT NOT NULL,
+    "DisplayName" TEXT NOT NULL,
+    "PasswordHash" TEXT NOT NULL,
+    "Role" INTEGER NOT NULL,
+    "IsActive" INTEGER NOT NULL,
+    "LastLoginUtc" TEXT NULL,
+    "CreatedUtc" TEXT NOT NULL,
+    "UpdatedUtc" TEXT NULL
+);
+2026-03-28T03:30:04.4863950Z [Information] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (0ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+CREATE TABLE "Products" (
+    "Id" TEXT NOT NULL CONSTRAINT "PK_Products" PRIMARY KEY,
+    "Name" TEXT NOT NULL,
+    "Sku" TEXT NULL,
+    "Barcode" TEXT NULL,
+    "Description" TEXT NULL,
+    "CategoryId" TEXT NOT NULL,
+    "UnitType" INTEGER NOT NULL,
+    "CostPrice" TEXT NOT NULL,
+    "SalePrice" TEXT NOT NULL,
+    "StockOnHand" TEXT NOT NULL,
+    "ReorderLevel" TEXT NOT NULL,
+    "IsActive" INTEGER NOT NULL,
+    "CreatedUtc" TEXT NOT NULL,
+    "UpdatedUtc" TEXT NULL,
+    CONSTRAINT "FK_Products_Categories_CategoryId" FOREIGN KEY ("CategoryId") REFERENCES "Categories" ("Id") ON DELETE RESTRICT
+);
+2026-03-28T03:30:04.4865280Z [Information] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (0ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+CREATE TABLE "Purchases" (
+    "Id" TEXT NOT NULL CONSTRAINT "PK_Purchases" PRIMARY KEY,
+    "PurchaseNumber" TEXT NOT NULL,
+    "SupplierId" TEXT NOT NULL,
+    "PurchaseDateUtc" TEXT NOT NULL,
+    "Status" INTEGER NOT NULL,
+    "Subtotal" TEXT NOT NULL,
+    "TaxAmount" TEXT NOT NULL,
+    "TotalAmount" TEXT NOT NULL,
+    "Notes" TEXT NULL,
+    "CreatedUtc" TEXT NOT NULL,
+    "UpdatedUtc" TEXT NULL,
+    CONSTRAINT "FK_Purchases_Suppliers_SupplierId" FOREIGN KEY ("SupplierId") REFERENCES "Suppliers" ("Id") ON DELETE RESTRICT
+);
+2026-03-28T03:30:04.4866370Z [Information] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (0ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+CREATE TABLE "AuditLogs" (
+    "Id" TEXT NOT NULL CONSTRAINT "PK_AuditLogs" PRIMARY KEY,
+    "ActionType" INTEGER NOT NULL,
+    "EntityName" TEXT NOT NULL,
+    "EntityId" TEXT NULL,
+    "UserId" TEXT NULL,
+    "Description" TEXT NOT NULL,
+    "MetadataJson" TEXT NULL,
+    "CreatedUtc" TEXT NOT NULL,
+    "UpdatedUtc" TEXT NULL,
+    CONSTRAINT "FK_AuditLogs_Users_UserId" FOREIGN KEY ("UserId") REFERENCES "Users" ("Id") ON DELETE RESTRICT
+);
+2026-03-28T03:30:04.4867930Z [Information] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (0ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+CREATE TABLE "Sales" (
+    "Id" TEXT NOT NULL CONSTRAINT "PK_Sales" PRIMARY KEY,
+    "ReceiptNumber" TEXT NOT NULL,
+    "CashierId" TEXT NOT NULL,
+    "SaleDateUtc" TEXT NOT NULL,
+    "Status" INTEGER NOT NULL,
+    "PaymentMethod" INTEGER NOT NULL,
+    "Subtotal" TEXT NOT NULL,
+    "DiscountAmount" TEXT NOT NULL,
+    "TaxAmount" TEXT NOT NULL,
+    "TotalAmount" TEXT NOT NULL,
+    "Notes" TEXT NULL,
+    "VoidedUtc" TEXT NULL,
+    "VoidedByUserId" TEXT NULL,
+    "CreatedUtc" TEXT NOT NULL,
+    "UpdatedUtc" TEXT NULL,
+    CONSTRAINT "FK_Sales_Users_CashierId" FOREIGN KEY ("CashierId") REFERENCES "Users" ("Id") ON DELETE RESTRICT
+);
+2026-03-28T03:30:04.4868890Z [Information] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (0ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+CREATE TABLE "InventoryMovements" (
+    "Id" TEXT NOT NULL CONSTRAINT "PK_InventoryMovements" PRIMARY KEY,
+    "ProductId" TEXT NOT NULL,
+    "MovementType" INTEGER NOT NULL,
+    "Quantity" TEXT NOT NULL,
+    "BalanceAfter" TEXT NOT NULL,
+    "MovementDateUtc" TEXT NOT NULL,
+    "ReferenceNumber" TEXT NULL,
+    "Notes" TEXT NULL,
+    "CreatedUtc" TEXT NOT NULL,
+    "UpdatedUtc" TEXT NULL,
+    CONSTRAINT "FK_InventoryMovements_Products_ProductId" FOREIGN KEY ("ProductId") REFERENCES "Products" ("Id") ON DELETE RESTRICT
+);
+2026-03-28T03:30:04.4869910Z [Information] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (0ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+CREATE TABLE "StockAdjustments" (
+    "Id" TEXT NOT NULL CONSTRAINT "PK_StockAdjustments" PRIMARY KEY,
+    "ProductId" TEXT NOT NULL,
+    "PreviousQuantity" TEXT NOT NULL,
+    "AdjustedQuantity" TEXT NOT NULL,
+    "NewQuantity" TEXT NOT NULL,
+    "Reason" TEXT NOT NULL,
+    "AdjustedByUserId" TEXT NOT NULL,
+    "CreatedUtc" TEXT NOT NULL,
+    "UpdatedUtc" TEXT NULL,
+    CONSTRAINT "FK_StockAdjustments_Products_ProductId" FOREIGN KEY ("ProductId") REFERENCES "Products" ("Id") ON DELETE RESTRICT,
+    CONSTRAINT "FK_StockAdjustments_Users_AdjustedByUserId" FOREIGN KEY ("AdjustedByUserId") REFERENCES "Users" ("Id") ON DELETE RESTRICT
+);
+2026-03-28T03:30:04.4870820Z [Information] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (0ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+CREATE TABLE "PurchaseItems" (
+    "Id" TEXT NOT NULL CONSTRAINT "PK_PurchaseItems" PRIMARY KEY,
+    "PurchaseId" TEXT NOT NULL,
+    "ProductId" TEXT NOT NULL,
+    "Quantity" TEXT NOT NULL,
+    "UnitCost" TEXT NOT NULL,
+    "LineTotal" TEXT NOT NULL,
+    "CreatedUtc" TEXT NOT NULL,
+    "UpdatedUtc" TEXT NULL,
+    CONSTRAINT "FK_PurchaseItems_Products_ProductId" FOREIGN KEY ("ProductId") REFERENCES "Products" ("Id") ON DELETE RESTRICT,
+    CONSTRAINT "FK_PurchaseItems_Purchases_PurchaseId" FOREIGN KEY ("PurchaseId") REFERENCES "Purchases" ("Id") ON DELETE CASCADE
+);
+2026-03-28T03:30:04.4871710Z [Information] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (0ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+CREATE TABLE "SaleItems" (
+    "Id" TEXT NOT NULL CONSTRAINT "PK_SaleItems" PRIMARY KEY,
+    "SaleId" TEXT NOT NULL,
+    "ProductId" TEXT NOT NULL,
+    "Quantity" TEXT NOT NULL,
+    "UnitPrice" TEXT NOT NULL,
+    "LineTotal" TEXT NOT NULL,
+    "CreatedUtc" TEXT NOT NULL,
+    "UpdatedUtc" TEXT NULL,
+    CONSTRAINT "FK_SaleItems_Products_ProductId" FOREIGN KEY ("ProductId") REFERENCES "Products" ("Id") ON DELETE RESTRICT,
+    CONSTRAINT "FK_SaleItems_Sales_SaleId" FOREIGN KEY ("SaleId") REFERENCES "Sales" ("Id") ON DELETE CASCADE
+);
+2026-03-28T03:30:04.4874060Z [Information] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (0ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+CREATE UNIQUE INDEX "IX_AppSettings_Key" ON "AppSettings" ("Key");
+2026-03-28T03:30:04.4875250Z [Information] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (0ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+CREATE INDEX "IX_AuditLogs_UserId" ON "AuditLogs" ("UserId");
+2026-03-28T03:30:04.4877830Z [Information] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (0ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+CREATE UNIQUE INDEX "IX_Categories_Name" ON "Categories" ("Name");
+2026-03-28T03:30:04.4880040Z [Information] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (0ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+CREATE INDEX "IX_InventoryMovements_ProductId_MovementDateUtc" ON "InventoryMovements" ("ProductId", "MovementDateUtc");
+2026-03-28T03:30:04.4881330Z [Information] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (0ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+CREATE INDEX "IX_Products_Barcode" ON "Products" ("Barcode");
+2026-03-28T03:30:04.4882110Z [Information] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (0ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+CREATE INDEX "IX_Products_CategoryId" ON "Products" ("CategoryId");
+2026-03-28T03:30:04.4882940Z [Information] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (0ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+CREATE INDEX "IX_Products_Name" ON "Products" ("Name");
+2026-03-28T03:30:04.4883690Z [Information] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (0ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+CREATE UNIQUE INDEX "IX_Products_Sku" ON "Products" ("Sku");
+2026-03-28T03:30:04.4884490Z [Information] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (0ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+CREATE INDEX "IX_PurchaseItems_ProductId" ON "PurchaseItems" ("ProductId");
+2026-03-28T03:30:04.4885260Z [Information] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (0ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+CREATE INDEX "IX_PurchaseItems_PurchaseId" ON "PurchaseItems" ("PurchaseId");
+2026-03-28T03:30:04.4886080Z [Information] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (0ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+CREATE INDEX "IX_Purchases_PurchaseDateUtc" ON "Purchases" ("PurchaseDateUtc");
+2026-03-28T03:30:04.4886890Z [Information] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (0ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+CREATE UNIQUE INDEX "IX_Purchases_PurchaseNumber" ON "Purchases" ("PurchaseNumber");
+2026-03-28T03:30:04.4887570Z [Information] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (0ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+CREATE INDEX "IX_Purchases_SupplierId" ON "Purchases" ("SupplierId");
+2026-03-28T03:30:04.4888240Z [Information] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (0ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+CREATE INDEX "IX_SaleItems_ProductId" ON "SaleItems" ("ProductId");
+2026-03-28T03:30:04.4888920Z [Information] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (0ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+CREATE INDEX "IX_SaleItems_SaleId" ON "SaleItems" ("SaleId");
+2026-03-28T03:30:04.4889530Z [Information] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (0ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+CREATE INDEX "IX_Sales_CashierId" ON "Sales" ("CashierId");
+2026-03-28T03:30:04.4890190Z [Information] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (0ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+CREATE UNIQUE INDEX "IX_Sales_ReceiptNumber" ON "Sales" ("ReceiptNumber");
+2026-03-28T03:30:04.4890840Z [Information] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (0ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+CREATE INDEX "IX_Sales_SaleDateUtc" ON "Sales" ("SaleDateUtc");
+2026-03-28T03:30:04.4891750Z [Information] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (0ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+CREATE INDEX "IX_StockAdjustments_AdjustedByUserId" ON "StockAdjustments" ("AdjustedByUserId");
+2026-03-28T03:30:04.4892360Z [Information] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (0ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+CREATE INDEX "IX_StockAdjustments_ProductId" ON "StockAdjustments" ("ProductId");
+2026-03-28T03:30:04.4892990Z [Information] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (0ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+CREATE INDEX "IX_Suppliers_Name" ON "Suppliers" ("Name");
+2026-03-28T03:30:04.4893570Z [Information] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (0ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+CREATE UNIQUE INDEX "IX_Users_Username" ON "Users" ("Username");
+2026-03-28T03:30:04.5995030Z [Information] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (0ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT EXISTS (
+    SELECT 1
+    FROM "Users" AS "u")
+2026-03-28T03:30:04.6636610Z [Information] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (0ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT EXISTS (
+    SELECT 1
+    FROM "Categories" AS "c")
+2026-03-28T03:30:04.6724120Z [Information] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (0ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT EXISTS (
+    SELECT 1
+    FROM "AppSettings" AS "a")
+2026-03-28T03:30:04.7485170Z [Information] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (4ms) [Parameters=[@p0='?' (DbType = Guid), @p1='?' (DbType = DateTime), @p2='?' (Size = 20), @p3='?' (Size = 13), @p4='?' (DbType = DateTime), @p5='?' (Size = 31)], CommandType='Text', CommandTimeout='30']
+INSERT INTO "AppSettings" ("Id", "CreatedUtc", "Description", "Key", "UpdatedUtc", "Value")
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5);
+2026-03-28T03:30:04.7498860Z [Information] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (0ms) [Parameters=[@p0='?' (DbType = Guid), @p1='?' (DbType = DateTime), @p2='?' (Size = 20), @p3='?' (Size = 9), @p4='?' (DbType = DateTime), @p5='?' (Size = 15)], CommandType='Text', CommandTimeout='30']
+INSERT INTO "AppSettings" ("Id", "CreatedUtc", "Description", "Key", "UpdatedUtc", "Value")
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5);
+2026-03-28T03:30:04.7500550Z [Information] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (0ms) [Parameters=[@p0='?' (DbType = Guid), @p1='?' (DbType = DateTime), @p2='?' (Size = 34), @p3='?' (Size = 8), @p4='?' (DbType = DateTime), @p5='?' (Size = 21)], CommandType='Text', CommandTimeout='30']
+INSERT INTO "AppSettings" ("Id", "CreatedUtc", "Description", "Key", "UpdatedUtc", "Value")
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5);
+2026-03-28T03:30:04.7501720Z [Information] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (0ms) [Parameters=[@p0='?' (DbType = Guid), @p1='?' (DbType = DateTime), @p2='?' (Size = 20), @p3='?' (Size = 11), @p4='?' (DbType = DateTime), @p5='?' (Size = 11)], CommandType='Text', CommandTimeout='30']
+INSERT INTO "AppSettings" ("Id", "CreatedUtc", "Description", "Key", "UpdatedUtc", "Value")
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5);
+2026-03-28T03:30:04.7505940Z [Information] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (0ms) [Parameters=[@p0='?' (DbType = Guid), @p1='?' (DbType = DateTime), @p2='?' (Size = 33), @p3='?' (DbType = Boolean), @p4='?' (Size = 10), @p5='?' (DbType = DateTime)], CommandType='Text', CommandTimeout='30']
+INSERT INTO "Categories" ("Id", "CreatedUtc", "Description", "IsActive", "Name", "UpdatedUtc")
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5);
+2026-03-28T03:30:04.7507120Z [Information] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (0ms) [Parameters=[@p0='?' (DbType = Guid), @p1='?' (DbType = DateTime), @p2='?' (Size = 30), @p3='?' (DbType = Boolean), @p4='?' (Size = 8), @p5='?' (DbType = DateTime)], CommandType='Text', CommandTimeout='30']
+INSERT INTO "Categories" ("Id", "CreatedUtc", "Description", "IsActive", "Name", "UpdatedUtc")
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5);
+2026-03-28T03:30:04.7508540Z [Information] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (0ms) [Parameters=[@p0='?' (DbType = Guid), @p1='?' (DbType = DateTime), @p2='?' (Size = 30), @p3='?' (DbType = Boolean), @p4='?' (Size = 9), @p5='?' (DbType = DateTime)], CommandType='Text', CommandTimeout='30']
+INSERT INTO "Categories" ("Id", "CreatedUtc", "Description", "IsActive", "Name", "UpdatedUtc")
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5);
+2026-03-28T03:30:04.7515160Z [Information] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (0ms) [Parameters=[@p0='?' (DbType = Guid), @p1='?' (DbType = DateTime), @p2='?' (Size = 11), @p3='?' (DbType = Boolean), @p4='?' (DbType = DateTime), @p5='?' (Size = 76), @p6='?' (DbType = Int32), @p7='?' (DbType = DateTime), @p8='?' (Size = 5)], CommandType='Text', CommandTimeout='30']
+INSERT INTO "Users" ("Id", "CreatedUtc", "DisplayName", "IsActive", "LastLoginUtc", "PasswordHash", "Role", "UpdatedUtc", "Username")
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6, @p7, @p8);
+2026-03-28T03:30:04.8206740Z [Warning] Microsoft.AspNetCore.DataProtection.KeyManagement.XmlKeyManager: No XML encryptor configured. Key {c48f6c0d-a92a-4d0b-bbf8-90b16eda65e5} may be persisted to storage in unencrypted form.
+2026-03-28T03:30:04.8456760Z [Error] Microsoft.Extensions.Hosting.Internal.Host: Hosting failed to start
+2026-03-28T03:32:24.1524090Z [Information] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (6ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT COUNT(*) FROM "sqlite_master" WHERE "type" = 'table' AND "rootpage" IS NOT NULL;
+2026-03-28T03:32:24.2724370Z [Information] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (1ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT EXISTS (
+    SELECT 1
+    FROM "Users" AS "u")
+2026-03-28T03:32:24.2770270Z [Information] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (0ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT EXISTS (
+    SELECT 1
+    FROM "Categories" AS "c")
+2026-03-28T03:32:24.2783340Z [Information] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (0ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT EXISTS (
+    SELECT 1
+    FROM "AppSettings" AS "a")
+2026-03-28T03:32:24.3447470Z [Error] Microsoft.Extensions.Hosting.Internal.Host: Hosting failed to start
+2026-03-28T03:33:19.9037550Z [Information] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (13ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT COUNT(*) FROM "sqlite_master" WHERE "type" = 'table' AND "rootpage" IS NOT NULL;
+2026-03-28T03:33:20.0848400Z [Information] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (1ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT EXISTS (
+    SELECT 1
+    FROM "Users" AS "u")
+2026-03-28T03:33:20.1122740Z [Information] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (0ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT EXISTS (
+    SELECT 1
+    FROM "Categories" AS "c")
+2026-03-28T03:33:20.1280360Z [Information] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (0ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT EXISTS (
+    SELECT 1
+    FROM "AppSettings" AS "a")
+2026-03-28T03:33:20.2224820Z [Information] Microsoft.Hosting.Lifetime: Now listening on: http://localhost:5070
+2026-03-28T03:33:20.2232310Z [Information] Microsoft.Hosting.Lifetime: Application started. Press Ctrl+C to shut down.
+2026-03-28T03:33:20.2233830Z [Information] Microsoft.Hosting.Lifetime: Hosting environment: Development
+2026-03-28T03:33:20.2234970Z [Information] Microsoft.Hosting.Lifetime: Content root path: /Users/kyiphyu/Repo/FamilyHardwareStore/FamilyHardwareStore/src/HardwareStore.Web
+2026-03-28T03:33:28.9064870Z [Warning] Microsoft.AspNetCore.HttpsPolicy.HttpsRedirectionMiddleware: Failed to determine the https port for redirect.
+2026-03-28T03:33:46.8106940Z [Information] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (2ms) [Parameters=[@__Trim_0='?' (Size = 5)], CommandType='Text', CommandTimeout='30']
+SELECT "u"."Id", "u"."CreatedUtc", "u"."DisplayName", "u"."IsActive", "u"."LastLoginUtc", "u"."PasswordHash", "u"."Role", "u"."UpdatedUtc", "u"."Username"
+FROM "Users" AS "u"
+WHERE "u"."Username" = @__Trim_0
+LIMIT 1
+2026-03-28T03:33:46.9204810Z [Information] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (2ms) [Parameters=[@p0='?' (DbType = Guid), @p1='?' (DbType = Int32), @p2='?' (DbType = DateTime), @p3='?' (Size = 17), @p4='?' (Size = 36), @p5='?' (Size = 4), @p6='?', @p7='?' (DbType = DateTime), @p8='?' (DbType = Guid)], CommandType='Text', CommandTimeout='30']
+INSERT INTO "AuditLogs" ("Id", "ActionType", "CreatedUtc", "Description", "EntityId", "EntityName", "MetadataJson", "UpdatedUtc", "UserId")
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6, @p7, @p8);
+2026-03-28T03:33:46.9277870Z [Information] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (0ms) [Parameters=[@p8='?' (DbType = Guid), @p0='?' (DbType = DateTime), @p1='?' (Size = 11), @p2='?' (DbType = Boolean), @p3='?' (DbType = DateTime), @p4='?' (Size = 76), @p5='?' (DbType = Int32), @p6='?' (DbType = DateTime), @p7='?' (Size = 5)], CommandType='Text', CommandTimeout='30']
+UPDATE "Users" SET "CreatedUtc" = @p0, "DisplayName" = @p1, "IsActive" = @p2, "LastLoginUtc" = @p3, "PasswordHash" = @p4, "Role" = @p5, "UpdatedUtc" = @p6, "Username" = @p7
+WHERE "Id" = @p8
+RETURNING 1;
+2026-03-28T03:33:46.9815010Z [Information] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (0ms) [Parameters=[@__startUtc_0='?' (DbType = DateTime), @__endUtc_1='?' (DbType = DateTime)], CommandType='Text', CommandTimeout='30']
+SELECT "s"."Id", "s"."CashierId", "s"."CreatedUtc", "s"."DiscountAmount", "s"."Notes", "s"."PaymentMethod", "s"."ReceiptNumber", "s"."SaleDateUtc", "s"."Status", "s"."Subtotal", "s"."TaxAmount", "s"."TotalAmount", "s"."UpdatedUtc", "s"."VoidedByUserId", "s"."VoidedUtc"
+FROM "Sales" AS "s"
+WHERE "s"."SaleDateUtc" >= @__startUtc_0 AND "s"."SaleDateUtc" < @__endUtc_1 AND "s"."Status" = 2
+2026-03-28T03:33:47.0128550Z [Information] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (0ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT "p"."Id" AS "ProductId", "p"."Name" AS "ProductName", "c"."Name" AS "CategoryName", "p"."StockOnHand", "p"."ReorderLevel"
+FROM "Products" AS "p"
+INNER JOIN "Categories" AS "c" ON "p"."CategoryId" = "c"."Id"
+ORDER BY "p"."Name"
+2026-03-28T03:33:55.8229610Z [Information] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (0ms) [Parameters=[@__startUtc_0='?' (DbType = DateTime), @__endUtc_1='?' (DbType = DateTime)], CommandType='Text', CommandTimeout='30']
+SELECT "s"."Id", "s"."CashierId", "s"."CreatedUtc", "s"."DiscountAmount", "s"."Notes", "s"."PaymentMethod", "s"."ReceiptNumber", "s"."SaleDateUtc", "s"."Status", "s"."Subtotal", "s"."TaxAmount", "s"."TotalAmount", "s"."UpdatedUtc", "s"."VoidedByUserId", "s"."VoidedUtc"
+FROM "Sales" AS "s"
+WHERE "s"."SaleDateUtc" >= @__startUtc_0 AND "s"."SaleDateUtc" < @__endUtc_1 AND "s"."Status" = 2
+2026-03-28T03:33:55.8238300Z [Information] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (0ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT "p"."Id" AS "ProductId", "p"."Name" AS "ProductName", "c"."Name" AS "CategoryName", "p"."StockOnHand", "p"."ReorderLevel"
+FROM "Products" AS "p"
+INNER JOIN "Categories" AS "c" ON "p"."CategoryId" = "c"."Id"
+ORDER BY "p"."Name"
+2026-03-28T03:34:00.3461900Z [Information] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (0ms) [Parameters=[@__startUtc_0='?' (DbType = DateTime), @__endUtc_1='?' (DbType = DateTime)], CommandType='Text', CommandTimeout='30']
+SELECT "s"."Id", "s"."CashierId", "s"."CreatedUtc", "s"."DiscountAmount", "s"."Notes", "s"."PaymentMethod", "s"."ReceiptNumber", "s"."SaleDateUtc", "s"."Status", "s"."Subtotal", "s"."TaxAmount", "s"."TotalAmount", "s"."UpdatedUtc", "s"."VoidedByUserId", "s"."VoidedUtc"
+FROM "Sales" AS "s"
+WHERE "s"."SaleDateUtc" >= @__startUtc_0 AND "s"."SaleDateUtc" < @__endUtc_1 AND "s"."Status" = 2
+2026-03-28T03:34:03.7893090Z [Information] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (0ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT "c"."Id", "c"."Name", "c"."Description", "c"."IsActive"
+FROM "Categories" AS "c"
+ORDER BY "c"."Name"
+2026-03-28T03:34:05.7923840Z [Information] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (0ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT "p"."Id", "p"."Name", "p"."Sku", "p"."Barcode", "c"."Name" AS "CategoryName", "p"."UnitType", "p"."SalePrice", "p"."StockOnHand", "p"."ReorderLevel"
+FROM "Products" AS "p"
+INNER JOIN "Categories" AS "c" ON "p"."CategoryId" = "c"."Id"
+ORDER BY "p"."Name"
+2026-03-28T03:34:07.6214540Z [Information] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (0ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT "s"."Id", "s"."Name", "s"."ContactPerson", "s"."Phone", "s"."Address", "s"."Email", "s"."IsActive"
+FROM "Suppliers" AS "s"
+ORDER BY "s"."Name"
+2026-03-28T03:34:08.9651410Z [Information] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (0ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT "p"."Id", "p"."PurchaseNumber", "s"."Name" AS "SupplierName", "p"."PurchaseDateUtc", "p"."Status", "p"."TotalAmount", (
+    SELECT COUNT(*)
+    FROM "PurchaseItems" AS "p0"
+    WHERE "p"."Id" = "p0"."PurchaseId") AS "ItemCount"
+FROM "Purchases" AS "p"
+INNER JOIN "Suppliers" AS "s" ON "p"."SupplierId" = "s"."Id"
+ORDER BY "p"."PurchaseDateUtc" DESC
+2026-03-28T03:34:11.0034010Z [Information] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (0ms) [Parameters=[@__startUtc_0='?' (DbType = DateTime), @__endUtc_1='?' (DbType = DateTime)], CommandType='Text', CommandTimeout='30']
+SELECT "s"."Id", "s"."CashierId", "s"."CreatedUtc", "s"."DiscountAmount", "s"."Notes", "s"."PaymentMethod", "s"."ReceiptNumber", "s"."SaleDateUtc", "s"."Status", "s"."Subtotal", "s"."TaxAmount", "s"."TotalAmount", "s"."UpdatedUtc", "s"."VoidedByUserId", "s"."VoidedUtc"
+FROM "Sales" AS "s"
+WHERE "s"."SaleDateUtc" >= @__startUtc_0 AND "s"."SaleDateUtc" < @__endUtc_1 AND "s"."Status" = 2
+2026-03-28T03:34:12.2728450Z [Information] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (0ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT "a"."Key", "a"."Value", "a"."Description"
+FROM "AppSettings" AS "a"
+ORDER BY "a"."Key"
+2026-03-28T03:34:19.3583040Z [Information] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (0ms) [Parameters=[@__startUtc_0='?' (DbType = DateTime), @__endUtc_1='?' (DbType = DateTime)], CommandType='Text', CommandTimeout='30']
+SELECT "s"."Id", "s"."CashierId", "s"."CreatedUtc", "s"."DiscountAmount", "s"."Notes", "s"."PaymentMethod", "s"."ReceiptNumber", "s"."SaleDateUtc", "s"."Status", "s"."Subtotal", "s"."TaxAmount", "s"."TotalAmount", "s"."UpdatedUtc", "s"."VoidedByUserId", "s"."VoidedUtc"
+FROM "Sales" AS "s"
+WHERE "s"."SaleDateUtc" >= @__startUtc_0 AND "s"."SaleDateUtc" < @__endUtc_1 AND "s"."Status" = 2
+2026-03-28T03:34:19.3599930Z [Information] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (0ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT "p"."Id" AS "ProductId", "p"."Name" AS "ProductName", "c"."Name" AS "CategoryName", "p"."StockOnHand", "p"."ReorderLevel"
+FROM "Products" AS "p"
+INNER JOIN "Categories" AS "c" ON "p"."CategoryId" = "c"."Id"
+ORDER BY "p"."Name"
+2026-03-28T03:42:21.8263330Z [Information] Microsoft.Hosting.Lifetime: Application is shutting down...
+2026-03-28T03:42:42.6895440Z [Information] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (13ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT COUNT(*) FROM "sqlite_master" WHERE "type" = 'table' AND "rootpage" IS NOT NULL;
+2026-03-28T03:42:43.0635440Z [Information] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (1ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT EXISTS (
+    SELECT 1
+    FROM "Users" AS "u")
+2026-03-28T03:42:43.0759410Z [Information] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (0ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT EXISTS (
+    SELECT 1
+    FROM "Categories" AS "c")
+2026-03-28T03:42:43.0787390Z [Information] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (0ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT EXISTS (
+    SELECT 1
+    FROM "AppSettings" AS "a")
+2026-03-28T03:42:43.1086440Z [Information] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (0ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT EXISTS (
+    SELECT 1
+    FROM "Users" AS "u"
+    WHERE "u"."Role" = 2)
+2026-03-28T03:42:43.2941820Z [Information] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (14ms) [Parameters=[@p0='?' (DbType = Guid), @p1='?' (DbType = DateTime), @p2='?' (Size = 13), @p3='?' (DbType = Boolean), @p4='?' (DbType = DateTime), @p5='?' (Size = 76), @p6='?' (DbType = Int32), @p7='?' (DbType = DateTime), @p8='?' (Size = 7)], CommandType='Text', CommandTimeout='30']
+INSERT INTO "Users" ("Id", "CreatedUtc", "DisplayName", "IsActive", "LastLoginUtc", "PasswordHash", "Role", "UpdatedUtc", "Username")
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6, @p7, @p8);
+2026-03-28T03:42:43.4998270Z [Information] Microsoft.Hosting.Lifetime: Now listening on: http://localhost:5070
+2026-03-28T03:42:43.5010910Z [Information] Microsoft.Hosting.Lifetime: Application started. Press Ctrl+C to shut down.
+2026-03-28T03:42:43.5012870Z [Information] Microsoft.Hosting.Lifetime: Hosting environment: Development
+2026-03-28T03:42:43.5014830Z [Information] Microsoft.Hosting.Lifetime: Content root path: /Users/kyiphyu/Repo/FamilyHardwareStore/FamilyHardwareStore/src/HardwareStore.Web
+2026-03-28T03:42:45.5218580Z [Warning] Microsoft.AspNetCore.HttpsPolicy.HttpsRedirectionMiddleware: Failed to determine the https port for redirect.
+2026-03-28T03:42:45.6498890Z [Information] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (1ms) [Parameters=[@__startUtc_0='?' (DbType = DateTime), @__endUtc_1='?' (DbType = DateTime)], CommandType='Text', CommandTimeout='30']
+SELECT "s"."Id", "s"."CashierId", "s"."CreatedUtc", "s"."DiscountAmount", "s"."Notes", "s"."PaymentMethod", "s"."ReceiptNumber", "s"."SaleDateUtc", "s"."Status", "s"."Subtotal", "s"."TaxAmount", "s"."TotalAmount", "s"."UpdatedUtc", "s"."VoidedByUserId", "s"."VoidedUtc"
+FROM "Sales" AS "s"
+WHERE "s"."SaleDateUtc" >= @__startUtc_0 AND "s"."SaleDateUtc" < @__endUtc_1 AND "s"."Status" = 2
+2026-03-28T03:42:45.7067030Z [Error] Microsoft.EntityFrameworkCore.Database.Command: Failed executing DbCommand (1ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT "p"."Id" AS "ProductId", "p"."Name" AS "ProductName", "p"."NameMm" AS "ProductNameMm", "c"."Name" AS "CategoryName", "c"."NameMm" AS "CategoryNameMm", "p"."StockOnHand", "p"."ReorderLevel"
+FROM "Products" AS "p"
+INNER JOIN "Categories" AS "c" ON "p"."CategoryId" = "c"."Id"
+ORDER BY "p"."Name"
+2026-03-28T03:42:45.7173580Z [Error] Microsoft.EntityFrameworkCore.Query: An exception occurred while iterating over the results of a query for context type 'HardwareStore.Infrastructure.Persistence.AppDbContext'.
+Microsoft.Data.Sqlite.SqliteException (0x80004005): SQLite Error 1: 'no such column: p.NameMm'.
+   at Microsoft.Data.Sqlite.SqliteException.ThrowExceptionForRC(Int32 rc, sqlite3 db)
+   at Microsoft.Data.Sqlite.SqliteCommand.PrepareAndEnumerateStatements()+MoveNext()
+   at Microsoft.Data.Sqlite.SqliteCommand.GetStatements()+MoveNext()
+   at Microsoft.Data.Sqlite.SqliteDataReader.NextResult()
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteReader(CommandBehavior behavior)
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteReaderAsync(CommandBehavior behavior, CancellationToken cancellationToken)
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteDbDataReaderAsync(CommandBehavior behavior, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.InitializeReaderAsync(AsyncEnumerator enumerator, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+2026-03-28T03:42:45.7229970Z [Error] Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddleware: An unhandled exception has occurred while executing the request.
+2026-03-28T03:44:03.7976130Z [Information] Microsoft.Hosting.Lifetime: Application is shutting down...
+2026-03-28T03:44:09.5693920Z [Information] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (7ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT COUNT(*) FROM "sqlite_master" WHERE "type" = 'table' AND "rootpage" IS NOT NULL;
+2026-03-28T03:44:09.8424450Z [Information] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (3ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT EXISTS (
+    SELECT 1
+    FROM "Users" AS "u")
+2026-03-28T03:44:09.8581200Z [Information] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (0ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT EXISTS (
+    SELECT 1
+    FROM "Categories" AS "c")
+2026-03-28T03:44:09.8615590Z [Information] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (0ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT EXISTS (
+    SELECT 1
+    FROM "AppSettings" AS "a")
+2026-03-28T03:44:09.8992370Z [Information] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (0ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT EXISTS (
+    SELECT 1
+    FROM "Users" AS "u"
+    WHERE "u"."Role" = 2)
+2026-03-28T03:44:10.0112600Z [Information] Microsoft.Hosting.Lifetime: Now listening on: http://localhost:5070
+2026-03-28T03:44:10.0129570Z [Information] Microsoft.Hosting.Lifetime: Application started. Press Ctrl+C to shut down.
+2026-03-28T03:44:10.0132000Z [Information] Microsoft.Hosting.Lifetime: Hosting environment: Development
+2026-03-28T03:44:10.0133960Z [Information] Microsoft.Hosting.Lifetime: Content root path: /Users/kyiphyu/Repo/FamilyHardwareStore/FamilyHardwareStore/src/HardwareStore.Web
+2026-03-28T03:44:11.7590890Z [Warning] Microsoft.AspNetCore.HttpsPolicy.HttpsRedirectionMiddleware: Failed to determine the https port for redirect.
+2026-03-28T03:44:11.8579590Z [Information] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (5ms) [Parameters=[@__startUtc_0='?' (DbType = DateTime), @__endUtc_1='?' (DbType = DateTime)], CommandType='Text', CommandTimeout='30']
+SELECT "s"."Id", "s"."CashierId", "s"."CreatedUtc", "s"."DiscountAmount", "s"."Notes", "s"."PaymentMethod", "s"."ReceiptNumber", "s"."SaleDateUtc", "s"."Status", "s"."Subtotal", "s"."TaxAmount", "s"."TotalAmount", "s"."UpdatedUtc", "s"."VoidedByUserId", "s"."VoidedUtc"
+FROM "Sales" AS "s"
+WHERE "s"."SaleDateUtc" >= @__startUtc_0 AND "s"."SaleDateUtc" < @__endUtc_1 AND "s"."Status" = 2
+2026-03-28T03:44:11.9039220Z [Error] Microsoft.EntityFrameworkCore.Database.Command: Failed executing DbCommand (2ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT "p"."Id" AS "ProductId", "p"."Name" AS "ProductName", "p"."NameMm" AS "ProductNameMm", "c"."Name" AS "CategoryName", "c"."NameMm" AS "CategoryNameMm", "p"."StockOnHand", "p"."ReorderLevel"
+FROM "Products" AS "p"
+INNER JOIN "Categories" AS "c" ON "p"."CategoryId" = "c"."Id"
+ORDER BY "p"."Name"
+2026-03-28T03:44:11.9127980Z [Error] Microsoft.EntityFrameworkCore.Query: An exception occurred while iterating over the results of a query for context type 'HardwareStore.Infrastructure.Persistence.AppDbContext'.
+Microsoft.Data.Sqlite.SqliteException (0x80004005): SQLite Error 1: 'no such column: p.NameMm'.
+   at Microsoft.Data.Sqlite.SqliteException.ThrowExceptionForRC(Int32 rc, sqlite3 db)
+   at Microsoft.Data.Sqlite.SqliteCommand.PrepareAndEnumerateStatements()+MoveNext()
+   at Microsoft.Data.Sqlite.SqliteCommand.GetStatements()+MoveNext()
+   at Microsoft.Data.Sqlite.SqliteDataReader.NextResult()
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteReader(CommandBehavior behavior)
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteReaderAsync(CommandBehavior behavior, CancellationToken cancellationToken)
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteDbDataReaderAsync(CommandBehavior behavior, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.InitializeReaderAsync(AsyncEnumerator enumerator, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+2026-03-28T03:44:11.9180910Z [Error] Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddleware: An unhandled exception has occurred while executing the request.
+2026-03-28T03:45:11.0482060Z [Information] Microsoft.Hosting.Lifetime: Application is shutting down...
+2026-03-28T03:45:28.1207470Z [Information] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (6ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+PRAGMA journal_mode = 'wal';
+2026-03-28T03:45:28.2263130Z [Information] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (1ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+CREATE TABLE "AppSettings" (
+    "Id" TEXT NOT NULL CONSTRAINT "PK_AppSettings" PRIMARY KEY,
+    "Key" TEXT NOT NULL,
+    "Value" TEXT NOT NULL,
+    "Description" TEXT NULL,
+    "CreatedUtc" TEXT NOT NULL,
+    "UpdatedUtc" TEXT NULL
+);
+2026-03-28T03:45:28.2279970Z [Information] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (0ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+CREATE TABLE "Categories" (
+    "Id" TEXT NOT NULL CONSTRAINT "PK_Categories" PRIMARY KEY,
+    "Name" TEXT NOT NULL,
+    "NameMm" TEXT NULL,
+    "Description" TEXT NULL,
+    "IsActive" INTEGER NOT NULL,
+    "CreatedUtc" TEXT NOT NULL,
+    "UpdatedUtc" TEXT NULL
+);
+2026-03-28T03:45:28.2282520Z [Information] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (0ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+CREATE TABLE "Suppliers" (
+    "Id" TEXT NOT NULL CONSTRAINT "PK_Suppliers" PRIMARY KEY,
+    "Name" TEXT NOT NULL,
+    "ContactPerson" TEXT NULL,
+    "Phone" TEXT NULL,
+    "Address" TEXT NULL,
+    "Email" TEXT NULL,
+    "IsActive" INTEGER NOT NULL,
+    "CreatedUtc" TEXT NOT NULL,
+    "UpdatedUtc" TEXT NULL
+);
+2026-03-28T03:45:28.2284090Z [Information] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (0ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+CREATE TABLE "Users" (
+    "Id" TEXT NOT NULL CONSTRAINT "PK_Users" PRIMARY KEY,
+    "Username" TEXT NOT NULL,
+    "DisplayName" TEXT NOT NULL,
+    "PasswordHash" TEXT NOT NULL,
+    "Role" INTEGER NOT NULL,
+    "IsActive" INTEGER NOT NULL,
+    "LastLoginUtc" TEXT NULL,
+    "CreatedUtc" TEXT NOT NULL,
+    "UpdatedUtc" TEXT NULL
+);
+2026-03-28T03:45:28.2286690Z [Information] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (0ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+CREATE TABLE "Products" (
+    "Id" TEXT NOT NULL CONSTRAINT "PK_Products" PRIMARY KEY,
+    "Name" TEXT NOT NULL,
+    "NameMm" TEXT NULL,
+    "Sku" TEXT NULL,
+    "Barcode" TEXT NULL,
+    "Description" TEXT NULL,
+    "CategoryId" TEXT NOT NULL,
+    "UnitType" INTEGER NOT NULL,
+    "CostPrice" TEXT NOT NULL,
+    "SalePrice" TEXT NOT NULL,
+    "StockOnHand" TEXT NOT NULL,
+    "ReorderLevel" TEXT NOT NULL,
+    "IsActive" INTEGER NOT NULL,
+    "CreatedUtc" TEXT NOT NULL,
+    "UpdatedUtc" TEXT NULL,
+    CONSTRAINT "FK_Products_Categories_CategoryId" FOREIGN KEY ("CategoryId") REFERENCES "Categories" ("Id") ON DELETE RESTRICT
+);
+2026-03-28T03:45:28.2290170Z [Information] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (0ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+CREATE TABLE "Purchases" (
+    "Id" TEXT NOT NULL CONSTRAINT "PK_Purchases" PRIMARY KEY,
+    "PurchaseNumber" TEXT NOT NULL,
+    "SupplierId" TEXT NOT NULL,
+    "PurchaseDateUtc" TEXT NOT NULL,
+    "Status" INTEGER NOT NULL,
+    "Subtotal" TEXT NOT NULL,
+    "TaxAmount" TEXT NOT NULL,
+    "TotalAmount" TEXT NOT NULL,
+    "Notes" TEXT NULL,
+    "CreatedUtc" TEXT NOT NULL,
+    "UpdatedUtc" TEXT NULL,
+    CONSTRAINT "FK_Purchases_Suppliers_SupplierId" FOREIGN KEY ("SupplierId") REFERENCES "Suppliers" ("Id") ON DELETE RESTRICT
+);
+2026-03-28T03:45:28.2292240Z [Information] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (0ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+CREATE TABLE "AuditLogs" (
+    "Id" TEXT NOT NULL CONSTRAINT "PK_AuditLogs" PRIMARY KEY,
+    "ActionType" INTEGER NOT NULL,
+    "EntityName" TEXT NOT NULL,
+    "EntityId" TEXT NULL,
+    "UserId" TEXT NULL,
+    "Description" TEXT NOT NULL,
+    "MetadataJson" TEXT NULL,
+    "CreatedUtc" TEXT NOT NULL,
+    "UpdatedUtc" TEXT NULL,
+    CONSTRAINT "FK_AuditLogs_Users_UserId" FOREIGN KEY ("UserId") REFERENCES "Users" ("Id") ON DELETE RESTRICT
+);
+2026-03-28T03:45:28.2293480Z [Information] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (0ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+CREATE TABLE "Sales" (
+    "Id" TEXT NOT NULL CONSTRAINT "PK_Sales" PRIMARY KEY,
+    "ReceiptNumber" TEXT NOT NULL,
+    "CashierId" TEXT NOT NULL,
+    "SaleDateUtc" TEXT NOT NULL,
+    "Status" INTEGER NOT NULL,
+    "PaymentMethod" INTEGER NOT NULL,
+    "Subtotal" TEXT NOT NULL,
+    "DiscountAmount" TEXT NOT NULL,
+    "TaxAmount" TEXT NOT NULL,
+    "TotalAmount" TEXT NOT NULL,
+    "Notes" TEXT NULL,
+    "VoidedUtc" TEXT NULL,
+    "VoidedByUserId" TEXT NULL,
+    "CreatedUtc" TEXT NOT NULL,
+    "UpdatedUtc" TEXT NULL,
+    CONSTRAINT "FK_Sales_Users_CashierId" FOREIGN KEY ("CashierId") REFERENCES "Users" ("Id") ON DELETE RESTRICT
+);
+2026-03-28T03:45:28.2294610Z [Information] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (0ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+CREATE TABLE "InventoryMovements" (
+    "Id" TEXT NOT NULL CONSTRAINT "PK_InventoryMovements" PRIMARY KEY,
+    "ProductId" TEXT NOT NULL,
+    "MovementType" INTEGER NOT NULL,
+    "Quantity" TEXT NOT NULL,
+    "BalanceAfter" TEXT NOT NULL,
+    "MovementDateUtc" TEXT NOT NULL,
+    "ReferenceNumber" TEXT NULL,
+    "Notes" TEXT NULL,
+    "CreatedUtc" TEXT NOT NULL,
+    "UpdatedUtc" TEXT NULL,
+    CONSTRAINT "FK_InventoryMovements_Products_ProductId" FOREIGN KEY ("ProductId") REFERENCES "Products" ("Id") ON DELETE RESTRICT
+);
+2026-03-28T03:45:28.2296390Z [Information] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (0ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+CREATE TABLE "StockAdjustments" (
+    "Id" TEXT NOT NULL CONSTRAINT "PK_StockAdjustments" PRIMARY KEY,
+    "ProductId" TEXT NOT NULL,
+    "PreviousQuantity" TEXT NOT NULL,
+    "AdjustedQuantity" TEXT NOT NULL,
+    "NewQuantity" TEXT NOT NULL,
+    "Reason" TEXT NOT NULL,
+    "AdjustedByUserId" TEXT NOT NULL,
+    "CreatedUtc" TEXT NOT NULL,
+    "UpdatedUtc" TEXT NULL,
+    CONSTRAINT "FK_StockAdjustments_Products_ProductId" FOREIGN KEY ("ProductId") REFERENCES "Products" ("Id") ON DELETE RESTRICT,
+    CONSTRAINT "FK_StockAdjustments_Users_AdjustedByUserId" FOREIGN KEY ("AdjustedByUserId") REFERENCES "Users" ("Id") ON DELETE RESTRICT
+);
+2026-03-28T03:45:28.2299880Z [Information] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (0ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+CREATE TABLE "PurchaseItems" (
+    "Id" TEXT NOT NULL CONSTRAINT "PK_PurchaseItems" PRIMARY KEY,
+    "PurchaseId" TEXT NOT NULL,
+    "ProductId" TEXT NOT NULL,
+    "Quantity" TEXT NOT NULL,
+    "UnitCost" TEXT NOT NULL,
+    "LineTotal" TEXT NOT NULL,
+    "CreatedUtc" TEXT NOT NULL,
+    "UpdatedUtc" TEXT NULL,
+    CONSTRAINT "FK_PurchaseItems_Products_ProductId" FOREIGN KEY ("ProductId") REFERENCES "Products" ("Id") ON DELETE RESTRICT,
+    CONSTRAINT "FK_PurchaseItems_Purchases_PurchaseId" FOREIGN KEY ("PurchaseId") REFERENCES "Purchases" ("Id") ON DELETE CASCADE
+);
+2026-03-28T03:45:28.2306960Z [Information] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (0ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+CREATE TABLE "SaleItems" (
+    "Id" TEXT NOT NULL CONSTRAINT "PK_SaleItems" PRIMARY KEY,
+    "SaleId" TEXT NOT NULL,
+    "ProductId" TEXT NOT NULL,
+    "Quantity" TEXT NOT NULL,
+    "UnitPrice" TEXT NOT NULL,
+    "LineTotal" TEXT NOT NULL,
+    "CreatedUtc" TEXT NOT NULL,
+    "UpdatedUtc" TEXT NULL,
+    CONSTRAINT "FK_SaleItems_Products_ProductId" FOREIGN KEY ("ProductId") REFERENCES "Products" ("Id") ON DELETE RESTRICT,
+    CONSTRAINT "FK_SaleItems_Sales_SaleId" FOREIGN KEY ("SaleId") REFERENCES "Sales" ("Id") ON DELETE CASCADE
+);
+2026-03-28T03:45:28.2310730Z [Information] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (0ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+CREATE UNIQUE INDEX "IX_AppSettings_Key" ON "AppSettings" ("Key");
+2026-03-28T03:45:28.2312990Z [Information] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (0ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+CREATE INDEX "IX_AuditLogs_UserId" ON "AuditLogs" ("UserId");
+2026-03-28T03:45:28.2315800Z [Information] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (0ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+CREATE UNIQUE INDEX "IX_Categories_Name" ON "Categories" ("Name");
+2026-03-28T03:45:28.2318020Z [Information] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (0ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+CREATE INDEX "IX_InventoryMovements_ProductId_MovementDateUtc" ON "InventoryMovements" ("ProductId", "MovementDateUtc");
+2026-03-28T03:45:28.2325220Z [Information] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (0ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+CREATE INDEX "IX_Products_Barcode" ON "Products" ("Barcode");
+2026-03-28T03:45:28.2327530Z [Information] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (0ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+CREATE INDEX "IX_Products_CategoryId" ON "Products" ("CategoryId");
+2026-03-28T03:45:28.2329770Z [Information] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (0ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+CREATE INDEX "IX_Products_Name" ON "Products" ("Name");
+2026-03-28T03:45:28.2331440Z [Information] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (0ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+CREATE UNIQUE INDEX "IX_Products_Sku" ON "Products" ("Sku");
+2026-03-28T03:45:28.2333530Z [Information] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (0ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+CREATE INDEX "IX_PurchaseItems_ProductId" ON "PurchaseItems" ("ProductId");
+2026-03-28T03:45:28.2336140Z [Information] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (0ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+CREATE INDEX "IX_PurchaseItems_PurchaseId" ON "PurchaseItems" ("PurchaseId");
+2026-03-28T03:45:28.2342720Z [Information] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (0ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+CREATE INDEX "IX_Purchases_PurchaseDateUtc" ON "Purchases" ("PurchaseDateUtc");
+2026-03-28T03:45:28.2345890Z [Information] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (0ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+CREATE UNIQUE INDEX "IX_Purchases_PurchaseNumber" ON "Purchases" ("PurchaseNumber");
+2026-03-28T03:45:28.2349340Z [Information] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (0ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+CREATE INDEX "IX_Purchases_SupplierId" ON "Purchases" ("SupplierId");
+2026-03-28T03:45:28.2351540Z [Information] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (0ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+CREATE INDEX "IX_SaleItems_ProductId" ON "SaleItems" ("ProductId");
+2026-03-28T03:45:28.2353230Z [Information] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (0ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+CREATE INDEX "IX_SaleItems_SaleId" ON "SaleItems" ("SaleId");
+2026-03-28T03:45:28.2354680Z [Information] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (0ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+CREATE INDEX "IX_Sales_CashierId" ON "Sales" ("CashierId");
+2026-03-28T03:45:28.2356260Z [Information] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (0ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+CREATE UNIQUE INDEX "IX_Sales_ReceiptNumber" ON "Sales" ("ReceiptNumber");
+2026-03-28T03:45:28.2358920Z [Information] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (0ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+CREATE INDEX "IX_Sales_SaleDateUtc" ON "Sales" ("SaleDateUtc");
+2026-03-28T03:45:28.2361340Z [Information] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (0ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+CREATE INDEX "IX_StockAdjustments_AdjustedByUserId" ON "StockAdjustments" ("AdjustedByUserId");
+2026-03-28T03:45:28.2363950Z [Information] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (0ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+CREATE INDEX "IX_StockAdjustments_ProductId" ON "StockAdjustments" ("ProductId");
+2026-03-28T03:45:28.2367550Z [Information] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (0ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+CREATE INDEX "IX_Suppliers_Name" ON "Suppliers" ("Name");
+2026-03-28T03:45:28.2370580Z [Information] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (0ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+CREATE UNIQUE INDEX "IX_Users_Username" ON "Users" ("Username");
+2026-03-28T03:45:28.3827720Z [Information] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (0ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT EXISTS (
+    SELECT 1
+    FROM "Users" AS "u")
+2026-03-28T03:45:28.4621230Z [Information] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (0ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT EXISTS (
+    SELECT 1
+    FROM "Categories" AS "c")
+2026-03-28T03:45:28.4747190Z [Information] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (0ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT EXISTS (
+    SELECT 1
+    FROM "AppSettings" AS "a")
+2026-03-28T03:45:28.5058010Z [Information] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (0ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT EXISTS (
+    SELECT 1
+    FROM "Users" AS "u"
+    WHERE "u"."Role" = 2)
+2026-03-28T03:45:28.6378710Z [Information] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (6ms) [Parameters=[@p0='?' (DbType = Guid), @p1='?' (DbType = DateTime), @p2='?' (Size = 20), @p3='?' (Size = 9), @p4='?' (DbType = DateTime), @p5='?' (Size = 15)], CommandType='Text', CommandTimeout='30']
+INSERT INTO "AppSettings" ("Id", "CreatedUtc", "Description", "Key", "UpdatedUtc", "Value")
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5);
+2026-03-28T03:45:28.6398820Z [Information] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (0ms) [Parameters=[@p0='?' (DbType = Guid), @p1='?' (DbType = DateTime), @p2='?' (Size = 34), @p3='?' (Size = 8), @p4='?' (DbType = DateTime), @p5='?' (Size = 21)], CommandType='Text', CommandTimeout='30']
+INSERT INTO "AppSettings" ("Id", "CreatedUtc", "Description", "Key", "UpdatedUtc", "Value")
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5);
+2026-03-28T03:45:28.6404060Z [Information] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (0ms) [Parameters=[@p0='?' (DbType = Guid), @p1='?' (DbType = DateTime), @p2='?' (Size = 31), @p3='?' (Size = 10), @p4='?' (DbType = DateTime), @p5='?' (Size = 20)], CommandType='Text', CommandTimeout='30']
+INSERT INTO "AppSettings" ("Id", "CreatedUtc", "Description", "Key", "UpdatedUtc", "Value")
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5);
+2026-03-28T03:45:28.6407520Z [Information] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (0ms) [Parameters=[@p0='?' (DbType = Guid), @p1='?' (DbType = DateTime), @p2='?' (Size = 20), @p3='?' (Size = 11), @p4='?' (DbType = DateTime), @p5='?' (Size = 11)], CommandType='Text', CommandTimeout='30']
+INSERT INTO "AppSettings" ("Id", "CreatedUtc", "Description", "Key", "UpdatedUtc", "Value")
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5);
+2026-03-28T03:45:28.6410660Z [Information] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (0ms) [Parameters=[@p0='?' (DbType = Guid), @p1='?' (DbType = DateTime), @p2='?' (Size = 20), @p3='?' (Size = 13), @p4='?' (DbType = DateTime), @p5='?' (Size = 31)], CommandType='Text', CommandTimeout='30']
+INSERT INTO "AppSettings" ("Id", "CreatedUtc", "Description", "Key", "UpdatedUtc", "Value")
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5);
+2026-03-28T03:45:28.6423890Z [Information] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (1ms) [Parameters=[@p0='?' (DbType = Guid), @p1='?' (DbType = DateTime), @p2='?' (Size = 30), @p3='?' (DbType = Boolean), @p4='?' (Size = 9), @p5='?', @p6='?' (DbType = DateTime)], CommandType='Text', CommandTimeout='30']
+INSERT INTO "Categories" ("Id", "CreatedUtc", "Description", "IsActive", "Name", "NameMm", "UpdatedUtc")
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6);
+2026-03-28T03:45:28.6428060Z [Information] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (0ms) [Parameters=[@p0='?' (DbType = Guid), @p1='?' (DbType = DateTime), @p2='?' (Size = 33), @p3='?' (DbType = Boolean), @p4='?' (Size = 10), @p5='?' (Size = 15), @p6='?' (DbType = DateTime)], CommandType='Text', CommandTimeout='30']
+INSERT INTO "Categories" ("Id", "CreatedUtc", "Description", "IsActive", "Name", "NameMm", "UpdatedUtc")
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6);
+2026-03-28T03:45:28.6430660Z [Information] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (0ms) [Parameters=[@p0='?' (DbType = Guid), @p1='?' (DbType = DateTime), @p2='?' (Size = 30), @p3='?' (DbType = Boolean), @p4='?' (Size = 8), @p5='?' (Size = 24), @p6='?' (DbType = DateTime)], CommandType='Text', CommandTimeout='30']
+INSERT INTO "Categories" ("Id", "CreatedUtc", "Description", "IsActive", "Name", "NameMm", "UpdatedUtc")
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6);
+2026-03-28T03:45:28.6438380Z [Information] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (0ms) [Parameters=[@p0='?' (DbType = Guid), @p1='?' (DbType = DateTime), @p2='?' (Size = 11), @p3='?' (DbType = Boolean), @p4='?' (DbType = DateTime), @p5='?' (Size = 76), @p6='?' (DbType = Int32), @p7='?' (DbType = DateTime), @p8='?' (Size = 5)], CommandType='Text', CommandTimeout='30']
+INSERT INTO "Users" ("Id", "CreatedUtc", "DisplayName", "IsActive", "LastLoginUtc", "PasswordHash", "Role", "UpdatedUtc", "Username")
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6, @p7, @p8);
+2026-03-28T03:45:28.6441270Z [Information] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (0ms) [Parameters=[@p0='?' (DbType = Guid), @p1='?' (DbType = DateTime), @p2='?' (Size = 13), @p3='?' (DbType = Boolean), @p4='?' (DbType = DateTime), @p5='?' (Size = 76), @p6='?' (DbType = Int32), @p7='?' (DbType = DateTime), @p8='?' (Size = 7)], CommandType='Text', CommandTimeout='30']
+INSERT INTO "Users" ("Id", "CreatedUtc", "DisplayName", "IsActive", "LastLoginUtc", "PasswordHash", "Role", "UpdatedUtc", "Username")
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6, @p7, @p8);
+2026-03-28T03:45:28.7375700Z [Information] Microsoft.Hosting.Lifetime: Now listening on: http://localhost:5070
+2026-03-28T03:45:28.7388850Z [Information] Microsoft.Hosting.Lifetime: Application started. Press Ctrl+C to shut down.
+2026-03-28T03:45:28.7392340Z [Information] Microsoft.Hosting.Lifetime: Hosting environment: Development
+2026-03-28T03:45:28.7395100Z [Information] Microsoft.Hosting.Lifetime: Content root path: /Users/kyiphyu/Repo/FamilyHardwareStore/FamilyHardwareStore/src/HardwareStore.Web
+2026-03-28T03:45:29.3592090Z [Warning] Microsoft.AspNetCore.HttpsPolicy.HttpsRedirectionMiddleware: Failed to determine the https port for redirect.
+2026-03-28T03:45:29.4384810Z [Information] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (0ms) [Parameters=[@__startUtc_0='?' (DbType = DateTime), @__endUtc_1='?' (DbType = DateTime)], CommandType='Text', CommandTimeout='30']
+SELECT "s"."Id", "s"."CashierId", "s"."CreatedUtc", "s"."DiscountAmount", "s"."Notes", "s"."PaymentMethod", "s"."ReceiptNumber", "s"."SaleDateUtc", "s"."Status", "s"."Subtotal", "s"."TaxAmount", "s"."TotalAmount", "s"."UpdatedUtc", "s"."VoidedByUserId", "s"."VoidedUtc"
+FROM "Sales" AS "s"
+WHERE "s"."SaleDateUtc" >= @__startUtc_0 AND "s"."SaleDateUtc" < @__endUtc_1 AND "s"."Status" = 2
+2026-03-28T03:45:29.4806930Z [Information] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (0ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT "p"."Id" AS "ProductId", "p"."Name" AS "ProductName", "p"."NameMm" AS "ProductNameMm", "c"."Name" AS "CategoryName", "c"."NameMm" AS "CategoryNameMm", "p"."StockOnHand", "p"."ReorderLevel"
+FROM "Products" AS "p"
+INNER JOIN "Categories" AS "c" ON "p"."CategoryId" = "c"."Id"
+ORDER BY "p"."Name"
+2026-03-28T03:50:10.5335540Z [Information] Microsoft.Hosting.Lifetime: Application is shutting down...

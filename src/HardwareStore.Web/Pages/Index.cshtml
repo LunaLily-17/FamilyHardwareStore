@@ -1,0 +1,99 @@
+@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Dashboard";
+}
+
+<div class="d-flex flex-column gap-4">
+    <section class="hero-panel">
+        <div>
+            <p class="eyebrow">Local-first hardware store system</p>
+            <h1>Store dashboard</h1>
+            <p class="hero-copy">Daily operations, reporting, inventory, printing, and backups in one single-PC deployment.</p>
+        </div>
+        <div class="hero-metrics">
+            <div class="metric-card">
+                <span>Today's sales</span>
+                <strong>@Model.DailySales.SaleCount</strong>
+            </div>
+            <div class="metric-card">
+                <span>Net sales</span>
+                <strong>@Model.DailySales.NetSales.ToString("C")</strong>
+            </div>
+        </div>
+    </section>
+
+    <section class="module-grid">
+        <a class="module-card" asp-page="/Categories/Index">
+            <h2>Categories</h2>
+            <p>Manage catalog groupings for fast navigation and reporting.</p>
+        </a>
+        <a class="module-card" asp-page="/Products/Index">
+            <h2>Products</h2>
+            <p>Catalog, SKU, barcode, and price management.</p>
+        </a>
+        <a class="module-card" asp-page="/Suppliers/Index">
+            <h2>Suppliers</h2>
+            <p>Supplier contacts and purchasing relationships.</p>
+        </a>
+        <a class="module-card" asp-page="/Purchases/Index">
+            <h2>Purchases</h2>
+            <p>Purchase entry and supplier restocking history.</p>
+        </a>
+        <a class="module-card" asp-page="/Sales/New">
+            <h2>Sales / POS</h2>
+            <p>Fast cashier workflow with receipt-first design.</p>
+        </a>
+        <a class="module-card" asp-page="/Reports/DailySales">
+            <h2>Reports</h2>
+            <p>Daily sales and low-stock visibility.</p>
+        </a>
+        <a class="module-card" asp-page="/Settings/Index">
+            <h2>Settings</h2>
+            <p>Store identity, receipt text, and operational options.</p>
+        </a>
+        <a class="module-card" asp-page="/Backup/Index">
+            <h2>Backup</h2>
+            <p>Manual database backups for a local shop setup.</p>
+        </a>
+    </section>
+
+    <section class="panel">
+        <div class="panel-header">
+            <h2>Low stock</h2>
+            <a asp-page="/Reports/DailySales">View reports</a>
+        </div>
+        <div class="table-responsive">
+            <table class="table table-sm align-middle">
+                <thead>
+                    <tr>
+                        <th>Product</th>
+                        <th>Category</th>
+                        <th>Stock</th>
+                        <th>Reorder</th>
+                    </tr>
+                </thead>
+                <tbody>
+                @if (Model.LowStockItems.Count == 0)
+                {
+                    <tr>
+                        <td colspan="4">No low-stock items.</td>
+                    </tr>
+                }
+                else
+                {
+                    @foreach (var item in Model.LowStockItems)
+                    {
+                        <tr>
+                            <td>@item.ProductName</td>
+                            <td>@item.CategoryName</td>
+                            <td>@item.StockOnHand</td>
+                            <td>@item.ReorderLevel</td>
+                        </tr>
+                    }
+                }
+                </tbody>
+            </table>
+        </div>
+    </section>
+</div>

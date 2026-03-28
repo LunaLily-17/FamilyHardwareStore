@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "dgSpecHash": "FTgH5hYLT4Y=",
+  "success": true,
+  "projectFilePath": "/Users/kyiphyu/Repo/FamilyHardwareStore/FamilyHardwareStore/src/HardwareStore.Domain/HardwareStore.Domain.csproj",
+  "expectedPackageFiles": [
+    "/Users/kyiphyu/.nuget/packages/microsoft.netcore.app.ref/9.0.5/microsoft.netcore.app.ref.9.0.5.nupkg.sha512",
+    "/Users/kyiphyu/.nuget/packages/microsoft.aspnetcore.app.ref/9.0.5/microsoft.aspnetcore.app.ref.9.0.5.nupkg.sha512"
+  ],
+  "logs": []
+}

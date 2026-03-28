@@ -1,0 +1,63 @@
+@page
+@model HardwareStore.Web.Pages.Products.CreateModel
+@{
+    ViewData["Title"] = "Create Product";
+}
+
+<section class="panel">
+    <div class="panel-header">
+        <div>
+            <h2>New product</h2>
+            <p class="muted">Starter catalog form wired to the application service.</p>
+        </div>
+    </div>
+    <form method="post" class="form-grid">
+        <div class="field">
+            <label asp-for="Input.Name"></label>
+            <input asp-for="Input.Name" />
+        </div>
+        <div class="field">
+            <label asp-for="Input.NameMm"></label>
+            <input asp-for="Input.NameMm" class="mm-text" />
+        </div>
+        <div class="field">
+            <label asp-for="Input.Sku"></label>
+            <input asp-for="Input.Sku" />
+        </div>
+        <div class="field">
+            <label asp-for="Input.Barcode"></label>
+            <input asp-for="Input.Barcode" />
+        </div>
+        <div class="field">
+            <label asp-for="Input.CategoryId"></label>
+            <select asp-for="Input.CategoryId" asp-items="Model.CategoryOptions"></select>
+        </div>
+        <div class="field">
+            <label asp-for="Input.UnitType"></label>
+            <select asp-for="Input.UnitType" asp-items="Html.GetEnumSelectList<HardwareStore.Domain.Enums.UnitType>()"></select>
+        </div>
+        <div class="field">
+            <label asp-for="Input.CostPrice"></label>
+            <input asp-for="Input.CostPrice" />
+        </div>
+        <div class="field">
+            <label asp-for="Input.SalePrice"></label>
+            <input asp-for="Input.SalePrice" />
+        </div>
+        <div class="field">
+            <label asp-for="Input.ReorderLevel"></label>
+            <input asp-for="Input.ReorderLevel" />
+        </div>
+        <div class="field" style="grid-column: 1 / -1;">
+            <label asp-for="Input.Description"></label>
+            <textarea asp-for="Input.Description"></textarea>
+        </div>
+        @if (!string.IsNullOrWhiteSpace(Model.ErrorMessage))
+        {
+            <p class="error-text" style="grid-column: 1 / -1;">@Model.ErrorMessage</p>
+        }
+        <div style="grid-column: 1 / -1;">
+            <button type="submit">Save product</button>
+        </div>
+    </form>
+</section>
