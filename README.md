@@ -1,6 +1,6 @@
 # Family Hardware Store
 
-A local-first hardware store management system for small shops, built with ASP.NET Core, EF Core, and SQLite.
+A local-first hardware store management system for small shops, with both ASP.NET Core web and Windows desktop variants sharing the same domain and data layers.
 
 ## Overview
 
@@ -18,22 +18,22 @@ The long-term direction is an ASP.NET Core Razor Pages modular monolith backed b
 
 ## Project Status
 
-The current repository contains an early ASP.NET Core web application with EF Core package references and initial sales/product code. It is not yet fully aligned with the target architecture described below.
+The repository now contains two UI directions on top of the shared modular backend:
 
 Current state:
 
-- single web project in the solution
-- MVC-style controllers and views
-- EF Core and SQLite packages already referenced
-- early domain, service, and data-access classes present
+- `HardwareStore.Web`: local-first Razor Pages web app
+- `HardwareStore.Desktop`: Windows WPF desktop app scaffold
+- shared `Application`, `Domain`, `Infrastructure`, and `Tests` projects
+- EF Core with SQLite and local seeding
+- early sales, purchases, products, suppliers, categories, receipt printing, and backup flows
 
 Target state:
 
-- Razor Pages web front end
-- layered modular monolith
-- separate Web, Application, Domain, Infrastructure, and Tests projects
-- print-friendly receipts and reports
-- authentication, audit logging, and backup workflows
+- both web and desktop front ends can coexist
+- web stays useful for browser-based local/LAN scenarios
+- desktop stays useful for single-PC shop operation
+- both variants share the same business rules and SQLite infrastructure
 
 This repository is therefore both:
 
@@ -87,6 +87,7 @@ hardware-store-local.sln
 ### Layers
 
 - `HardwareStore.Web`: Razor Pages UI, startup, authentication, page models
+- `HardwareStore.Desktop`: Windows desktop UI, local login, operator shell
 - `HardwareStore.Application`: business services, DTOs, validation, reporting orchestration
 - `HardwareStore.Domain`: entities, enums, core invariants, business concepts
 - `HardwareStore.Infrastructure`: EF Core, SQLite, repositories where justified, backup, printing integration
@@ -111,6 +112,7 @@ hardware-store-local.sln
 
 - C#
 - ASP.NET Core
+- WPF for the Windows desktop variant
 - Razor Pages for the target UI architecture
 - Entity Framework Core
 - SQLite for local-first storage
@@ -228,17 +230,28 @@ This keeps the first release reliable and simple while leaving direct printer su
 The repository is still evolving, so setup steps will change as the solution is restructured. For the current codebase:
 
 ```bash
-dotnet restore FamilyHardwareStore/FamilyHardwareStore/FamilyHardwareStore.Api/FamilyHardwareStore.sln
-dotnet run --project FamilyHardwareStore/FamilyHardwareStore/FamilyHardwareStore.Api
+dotnet restore hardware-store-local.sln
+dotnet run --project src/HardwareStore.Web
 ```
 
-For the target modular solution, the intended workflow is:
+For the web app:
 
 ```bash
 dotnet restore
-dotnet ef database update --project src/HardwareStore.Infrastructure --startup-project src/HardwareStore.Web
 dotnet run --project src/HardwareStore.Web
 ```
+
+For the Windows desktop app:
+
+```bash
+dotnet restore
+dotnet build src/HardwareStore.Desktop
+```
+
+Note:
+
+- `HardwareStore.Desktop` targets Windows WPF and should be built and run on Windows
+- the current Codex environment may scaffold the project but cannot execute the Windows UI on macOS
 
 ## Engineering Standards
 
@@ -263,6 +276,7 @@ Near-term priorities:
 ## Documentation
 
 - [Architecture](./docs/architecture.md)
+- [Database](./docs/database.md)
 
 Additional docs planned:
 
@@ -273,4 +287,3 @@ Additional docs planned:
 ## License
 
 Choose and add a license before public release.
-

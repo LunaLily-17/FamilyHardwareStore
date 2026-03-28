@@ -1,14 +1,14 @@
 @page
 @model HardwareStore.Web.Pages.Sales.NewModel
 @{
-    ViewData["Title"] = "Sales / POS";
+    ViewData["Title"] = "အရောင်း";
 }
 
 <section class="panel">
     <div class="panel-header">
         <div>
-            <h2>New sale</h2>
-            <p class="muted">Cashier-safe sale entry with browser-based receipt printing.</p>
+            <h2>အရောင်းအသစ်</h2>
+            <p class="muted">အရောင်းပြီးလျှင် ဘောင်ချာကို တိုက်ရိုက်ထုတ်နိုင်ပါသည်။</p>
         </div>
     </div>
     <form method="post" class="form-grid">
@@ -41,7 +41,7 @@
             <p class="error-text" style="grid-column: 1 / -1;">@Model.ErrorMessage</p>
         }
         <div style="grid-column: 1 / -1;">
-            <button type="submit">Complete sale</button>
+            <button type="submit">ရောင်းမည်</button>
         </div>
     </form>
 </section>

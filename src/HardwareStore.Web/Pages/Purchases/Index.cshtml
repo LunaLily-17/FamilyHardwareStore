@@ -1,26 +1,26 @@
 @page
 @model HardwareStore.Web.Pages.Purchases.IndexModel
 @{
-    ViewData["Title"] = "Purchases";
+    ViewData["Title"] = "အဝယ်စာရင်း";
 }
 
 <section class="panel">
     <div class="panel-header">
         <div>
-            <h2>Purchases</h2>
-            <p class="muted">Supplier purchase history and stock intake.</p>
+            <h2>အဝယ်စာရင်း</h2>
+            <p class="muted">ပစ္စည်းဝယ်ယူမှုများနှင့် လက်ခံရရှိမှုကို ကြည့်နိုင်ပါသည်။</p>
         </div>
-        <a class="button" asp-page="/Purchases/Create">New purchase</a>
+        <a class="button" asp-page="/Purchases/Create">အဝယ်အသစ်</a>
     </div>
     <table class="table">
         <thead>
             <tr>
-                <th>Number</th>
-                <th>Supplier</th>
-                <th>Date</th>
-                <th>Status</th>
-                <th>Total</th>
-                <th>Items</th>
+                <th>နံပါတ်</th>
+                <th>ပေးသွင်းသူ</th>
+                <th>နေ့စွဲ</th>
+                <th>အခြေအနေ</th>
+                <th>စုစုပေါင်း</th>
+                <th>ပစ္စည်းအရေအတွက်</th>
             </tr>
         </thead>
         <tbody>

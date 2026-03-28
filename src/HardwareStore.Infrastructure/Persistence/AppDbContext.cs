@@ -35,8 +35,8 @@ public sealed class AppDbContext(DbContextOptions<AppDbContext> options) : DbCon
     public async Task AddAsync<TEntity>(TEntity entity, CancellationToken cancellationToken = default) where TEntity : class
         => await Set<TEntity>().AddAsync(entity, cancellationToken);
 
-    public void Update<TEntity>(TEntity entity) where TEntity : class
-        => Set<TEntity>().Update(entity);
+    void IAppDbContext.Update<TEntity>(TEntity entity)
+        => base.Update(entity);
 
     public async Task<IAppDbContextTransaction> BeginTransactionAsync(CancellationToken cancellationToken = default)
         => new AppDbContextTransaction(await Database.BeginTransactionAsync(cancellationToken));

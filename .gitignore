@@ -1,0 +1,14 @@
+.DS_Store
+.vs/
+
+**/bin/
+**/obj/
+
+localdb/
+backups/
+logs/
+
+*.db
+*.db-shm
+*.db-wal
+*.log

@@ -1,23 +1,23 @@
 @page
 @model HardwareStore.Web.Pages.Categories.IndexModel
 @{
-    ViewData["Title"] = "Categories";
+    ViewData["Title"] = "အမျိုးအစားများ";
 }
 
 <section class="panel">
     <div class="panel-header">
         <div>
-            <h2>Categories</h2>
-            <p class="muted">Product groupings used across catalog and reports.</p>
+            <h2>အမျိုးအစားစာရင်း</h2>
+            <p class="muted">ပစ္စည်းအုပ်စုများကို စီမံနိုင်ပါသည်။</p>
         </div>
-        <a class="button" asp-page="/Categories/Create">Add category</a>
+        <a class="button" asp-page="/Categories/Create">အသစ်ထည့်မည်</a>
     </div>
     <table class="table">
         <thead>
             <tr>
-                <th>Name</th>
-                <th>Description</th>
-                <th>Active</th>
+                <th>အမည်</th>
+                <th>အသေးစိတ်</th>
+                <th>အသုံးပြုနေ</th>
             </tr>
         </thead>
         <tbody>

@@ -3,36 +3,36 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - Family Hardware Store</title>
+    <title>@ViewData["Title"] - မိသားစု ဟာ့ဒ်ဝဲဆိုင်</title>
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
 </head>
 <body>
     <div class="app-shell">
         <aside class="sidebar">
             <a class="brand-mark" asp-page="/Index">
-                <span class="brand-kicker">Family</span>
-                <strong>Hardware Store</strong>
+                <span class="brand-kicker">မိသားစု</span>
+                <strong>ဟာ့ဒ်ဝဲဆိုင်</strong>
             </a>
             <nav class="nav-stack">
-                <a asp-page="/Index">Dashboard</a>
-                <a asp-page="/Products/Index">Products</a>
-                <a asp-page="/Sales/New">Sales / POS</a>
-                <a asp-page="/Sales/Reprint">Reprint Receipt</a>
-                <a asp-page="/Reports/DailySales">Reports</a>
+                <a asp-page="/Index">ပင်မစာမျက်နှာ</a>
+                <a asp-page="/Products/Index">ပစ္စည်းများ</a>
+                <a asp-page="/Sales/New">အရောင်း</a>
+                <a asp-page="/Sales/Reprint">ဘောင်ချာ ပြန်ထုတ်ရန်</a>
+                <a asp-page="/Reports/DailySales">အစီရင်ခံစာ</a>
                 @if (User.IsInRole("Admin"))
                 {
-                    <a asp-page="/Categories/Index">Categories</a>
-                    <a asp-page="/Suppliers/Index">Suppliers</a>
-                    <a asp-page="/Purchases/Index">Purchases</a>
-                    <a asp-page="/Settings/Index">Settings</a>
-                    <a asp-page="/Backup/Index">Backup</a>
+                    <a asp-page="/Categories/Index">အမျိုးအစားများ</a>
+                    <a asp-page="/Suppliers/Index">ပေးသွင်းသူများ</a>
+                    <a asp-page="/Purchases/Index">အဝယ်စာရင်း</a>
+                    <a asp-page="/Settings/Index">ဆိုင်အချက်အလက်</a>
+                    <a asp-page="/Backup/Index">ဒေတာ အရန်သိမ်းရန်</a>
                 }
             </nav>
         </aside>
         <div class="main-shell">
             <header class="topbar">
                 <div>
-                    <p class="topbar-label">Local-first operations</p>
+                    <p class="topbar-label">ဆိုင်သုံး စနစ်</p>
                     <h1>@ViewData["Title"]</h1>
                 </div>
                 <div class="topbar-user">
@@ -40,7 +40,7 @@
                     @if (User.Identity?.IsAuthenticated ?? false)
                     {
                         <form method="post" asp-page="/Account/Logout">
-                            <button type="submit" class="button secondary">Sign out</button>
+                            <button type="submit" class="button secondary">ထွက်မည်</button>
                         </form>
                     }
                 </div>

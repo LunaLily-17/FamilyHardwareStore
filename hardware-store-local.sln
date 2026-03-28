@@ -15,6 +15,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HardwareStore.Infrastructur
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HardwareStore.Tests", "src\HardwareStore.Tests\HardwareStore.Tests.csproj", "{27D45398-B38C-46A2-B2AA-1FFCA35C9786}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HardwareStore.Desktop", "src\HardwareStore.Desktop\HardwareStore.Desktop.csproj", "{9F5B0F5F-1A1E-4F3B-8A14-2C356DC3DA18}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -85,6 +87,18 @@ Global
 		{27D45398-B38C-46A2-B2AA-1FFCA35C9786}.Release|x64.Build.0 = Release|Any CPU
 		{27D45398-B38C-46A2-B2AA-1FFCA35C9786}.Release|x86.ActiveCfg = Release|Any CPU
 		{27D45398-B38C-46A2-B2AA-1FFCA35C9786}.Release|x86.Build.0 = Release|Any CPU
+		{9F5B0F5F-1A1E-4F3B-8A14-2C356DC3DA18}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9F5B0F5F-1A1E-4F3B-8A14-2C356DC3DA18}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9F5B0F5F-1A1E-4F3B-8A14-2C356DC3DA18}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{9F5B0F5F-1A1E-4F3B-8A14-2C356DC3DA18}.Debug|x64.Build.0 = Debug|Any CPU
+		{9F5B0F5F-1A1E-4F3B-8A14-2C356DC3DA18}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{9F5B0F5F-1A1E-4F3B-8A14-2C356DC3DA18}.Debug|x86.Build.0 = Debug|Any CPU
+		{9F5B0F5F-1A1E-4F3B-8A14-2C356DC3DA18}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9F5B0F5F-1A1E-4F3B-8A14-2C356DC3DA18}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9F5B0F5F-1A1E-4F3B-8A14-2C356DC3DA18}.Release|x64.ActiveCfg = Release|Any CPU
+		{9F5B0F5F-1A1E-4F3B-8A14-2C356DC3DA18}.Release|x64.Build.0 = Release|Any CPU
+		{9F5B0F5F-1A1E-4F3B-8A14-2C356DC3DA18}.Release|x86.ActiveCfg = Release|Any CPU
+		{9F5B0F5F-1A1E-4F3B-8A14-2C356DC3DA18}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -95,5 +109,6 @@ Global
 		{B533653E-E13F-4969-9E49-5E65A26FCE0F} = {827E0CD3-B72D-47B6-A68D-7590B98EB39B}
 		{E8B3059A-7B09-4518-AF07-EBAFDBD1328A} = {827E0CD3-B72D-47B6-A68D-7590B98EB39B}
 		{27D45398-B38C-46A2-B2AA-1FFCA35C9786} = {827E0CD3-B72D-47B6-A68D-7590B98EB39B}
+		{9F5B0F5F-1A1E-4F3B-8A14-2C356DC3DA18} = {827E0CD3-B72D-47B6-A68D-7590B98EB39B}
 	EndGlobalSection
 EndGlobal

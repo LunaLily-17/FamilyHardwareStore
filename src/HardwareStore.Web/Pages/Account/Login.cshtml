@@ -2,22 +2,22 @@
 @model HardwareStore.Web.Pages.Account.LoginModel
 @{
     Layout = null;
-    ViewData["Title"] = "Login";
+    ViewData["Title"] = "ဝင်ရန်";
 }
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Login - Family Hardware Store</title>
+    <title>ဝင်ရန် - မိသားစု ဟာ့ဒ်ဝဲဆိုင်</title>
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
 </head>
 <body>
     <div class="auth-wrap">
         <div class="auth-card">
-            <p class="eyebrow">Shop access</p>
-            <h1>Family Hardware Store</h1>
-            <p class="muted">Use the seeded admin account on first run. Username: <strong>admin</strong> Password: <strong>Admin@123</strong></p>
+            <p class="eyebrow">ဆိုင်ဝင်ခွင့်</p>
+            <h1>မိသားစု ဟာ့ဒ်ဝဲဆိုင်</h1>
+            <p class="muted">အသုံးပြုရန် အကောင့်ဖြင့် ဝင်ပါ။</p>
 
             <form method="post" class="form-grid">
                 <div class="field" style="grid-column: 1 / -1;">
@@ -35,7 +35,7 @@
                     <p class="error-text" style="grid-column: 1 / -1;">@Model.ErrorMessage</p>
                 }
                 <div style="grid-column: 1 / -1;">
-                    <button type="submit">Sign in</button>
+                    <button type="submit">ဝင်မည်</button>
                 </div>
             </form>
         </div>

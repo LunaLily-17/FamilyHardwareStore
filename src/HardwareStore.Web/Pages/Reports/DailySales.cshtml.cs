@@ -1,5 +1,6 @@
 using HardwareStore.Application.DTOs.Reports;
 using HardwareStore.Application.Interfaces;
+using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
@@ -8,6 +9,7 @@ namespace HardwareStore.Web.Pages.Reports;
 public sealed class DailySalesModel(IReportingService reportingService) : PageModel
 {
     [BindProperty(SupportsGet = true)]
+    [Display(Name = "နေ့စွဲ")]
     public DateOnly Date { get; set; } = DateOnly.FromDateTime(DateTime.UtcNow);
 
     public DailySalesReportDto Report { get; private set; } = new();

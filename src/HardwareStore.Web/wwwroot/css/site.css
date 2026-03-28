@@ -1,12 +1,17 @@
 :root {
-  --bg: #f4f0e8;
-  --surface: rgba(255, 250, 243, 0.88);
+  --bg: #f5f6ef;
+  --surface: rgba(255, 252, 249, 0.92);
   --surface-strong: #ffffff;
-  --line: rgba(85, 62, 36, 0.14);
-  --text: #2f2418;
-  --muted: #74624d;
-  --accent: #bf5a2b;
-  --shadow: 0 18px 50px rgba(60, 39, 18, 0.08);
+  --line: rgba(154, 21, 33, 0.14);
+  --text: #231a16;
+  --muted: #5f655a;
+  --accent: #d81f26;
+  --accent-strong: #b41018;
+  --accent-soft: rgba(216, 31, 38, 0.1);
+  --support: #72d62e;
+  --support-strong: #57b91c;
+  --support-soft: rgba(114, 214, 46, 0.16);
+  --shadow: 0 20px 48px rgba(128, 21, 27, 0.1);
 }
 
 html {
@@ -18,9 +23,10 @@ body {
   min-height: 100vh;
   color: var(--text);
   background:
-    radial-gradient(circle at top left, rgba(255, 210, 150, 0.45), transparent 28%),
-    radial-gradient(circle at bottom right, rgba(191, 90, 43, 0.18), transparent 30%),
-    linear-gradient(160deg, #f7f1e8 0%, #eee2d1 100%);
+    radial-gradient(circle at top left, rgba(216, 31, 38, 0.18), transparent 26%),
+    radial-gradient(circle at 18% 28%, rgba(114, 214, 46, 0.13), transparent 18%),
+    radial-gradient(circle at bottom right, rgba(114, 214, 46, 0.14), transparent 22%),
+    linear-gradient(160deg, #fafaf6 0%, #f0f3ea 100%);
   font-family: "Noto Sans Myanmar", "Pyidaungsu", "Myanmar Text", Georgia, "Times New Roman", serif;
 }
 
@@ -37,11 +43,13 @@ a {
 
 .sidebar {
   padding: 2rem 1.5rem;
-  background: rgba(60, 39, 18, 0.92);
-  color: #f8ecdb;
+  background:
+    linear-gradient(180deg, rgba(122, 15, 24, 0.98) 0%, rgba(168, 18, 29, 0.96) 52%, rgba(47, 98, 29, 0.92) 100%);
+  color: #fff8f5;
   display: flex;
   flex-direction: column;
   gap: 2rem;
+  box-shadow: inset -1px 0 0 rgba(255, 255, 255, 0.08);
 }
 
 .brand-mark {
@@ -61,7 +69,12 @@ a {
 }
 
 .sidebar .brand-kicker {
-  color: #d3b48e;
+  color: #b8f38f;
+}
+
+.brand-mark strong {
+  color: #fffdfb;
+  text-shadow: 0 8px 24px rgba(0, 0, 0, 0.18);
 }
 
 .nav-stack {
@@ -71,10 +84,18 @@ a {
 }
 
 .nav-stack a {
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.12);
   border-radius: 16px;
   padding: 0.9rem 1rem;
-  background: rgba(255, 255, 255, 0.04);
+  background: rgba(255, 255, 255, 0.05);
+  transition: transform 0.16s ease, background-color 0.16s ease, border-color 0.16s ease;
+}
+
+.nav-stack a:hover,
+.nav-stack a:focus-visible {
+  background: rgba(114, 214, 46, 0.16);
+  border-color: rgba(184, 243, 143, 0.38);
+  transform: translateX(2px);
 }
 
 .main-shell {
@@ -92,6 +113,7 @@ a {
 .topbar h1,
 .hero-panel h1 {
   margin: 0.25rem 0 0;
+  color: var(--accent-strong);
 }
 
 .topbar-user {
@@ -121,6 +143,10 @@ a {
   justify-content: space-between;
   gap: 1.5rem;
   padding: 1.75rem;
+  background:
+    linear-gradient(135deg, rgba(216, 31, 38, 0.06), transparent 28%),
+    linear-gradient(325deg, rgba(114, 214, 46, 0.08), transparent 34%),
+    var(--surface);
 }
 
 .hero-copy {
@@ -143,6 +169,18 @@ a {
 .module-card {
   padding: 1rem 1.2rem;
   background: var(--surface-strong);
+  position: relative;
+  overflow: hidden;
+}
+
+.metric-card::before,
+.module-card::before {
+  content: "";
+  position: absolute;
+  inset: 0 auto auto 0;
+  width: 100%;
+  height: 4px;
+  background: linear-gradient(90deg, var(--accent), var(--support));
 }
 
 .metric-card span {
@@ -199,11 +237,23 @@ button[type="submit"] {
   background: var(--accent);
   color: #fff9f4;
   cursor: pointer;
+  box-shadow: 0 12px 24px rgba(216, 31, 38, 0.22);
+  transition: transform 0.16s ease, box-shadow 0.16s ease, background-color 0.16s ease;
+}
+
+.button:hover,
+button[type="submit"]:hover,
+.button:focus-visible,
+button[type="submit"]:focus-visible {
+  background: var(--accent-strong);
+  transform: translateY(-1px);
+  box-shadow: 0 16px 28px rgba(180, 16, 24, 0.24);
 }
 
 .button.secondary {
-  background: #efe1cc;
-  color: var(--text);
+  background: var(--support-soft);
+  color: #19430f;
+  box-shadow: none;
 }
 
 .form-grid {
@@ -225,6 +275,15 @@ button[type="submit"] {
   border-radius: 14px;
   padding: 0.85rem 0.95rem;
   background: #fffdf9;
+  transition: border-color 0.16s ease, box-shadow 0.16s ease;
+}
+
+.field input:focus,
+.field select:focus,
+.field textarea:focus {
+  outline: none;
+  border-color: rgba(114, 214, 46, 0.8);
+  box-shadow: 0 0 0 4px rgba(114, 214, 46, 0.14);
 }
 
 .table {
@@ -237,6 +296,11 @@ button[type="submit"] {
   padding: 0.8rem 0.7rem;
   border-bottom: 1px solid var(--line);
   text-align: left;
+}
+
+.table th {
+  color: var(--accent-strong);
+  background: linear-gradient(180deg, rgba(216, 31, 38, 0.04), rgba(114, 214, 46, 0.03));
 }
 
 .auth-wrap {
@@ -254,7 +318,7 @@ button[type="submit"] {
 .validation-summary-errors,
 .field-validation-error,
 .error-text {
-  color: #962f1f;
+  color: var(--accent-strong);
 }
 
 .mm-text {
@@ -270,7 +334,7 @@ button[type="submit"] {
   margin: 0 auto;
   background: #fff;
   padding: 1rem;
-  border: 1px dashed var(--line);
+  border: 1px dashed rgba(216, 31, 38, 0.28);
 }
 
 .receipt-header,

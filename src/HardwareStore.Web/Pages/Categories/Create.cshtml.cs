@@ -44,9 +44,11 @@ public sealed class CreateModel(ICategoryService categoryService) : PageModel
     public sealed class CreateCategoryInput
     {
         [Required]
+        [Display(Name = "အမည်")]
         public string Name { get; set; } = string.Empty;
-        [Display(Name = "Name (Myanmar)")]
+        [Display(Name = "အမည် (မြန်မာ)")]
         public string? NameMm { get; set; }
+        [Display(Name = "အသေးစိတ်")]
         public string? Description { get; set; }
         public bool IsActive { get; set; } = true;
     }

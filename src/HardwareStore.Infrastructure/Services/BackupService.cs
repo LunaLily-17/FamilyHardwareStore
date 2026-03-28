@@ -44,7 +44,7 @@ public sealed class BackupService(IOptions<StorageOptions> storageOptions, IAudi
             return ServiceResult.Failure("No database file exists yet.");
         }
 
-        var backupName = $"{Path.GetFileNameWithoutExtension(_options.DatabaseFileName)}-{DateTime.UtcNow:yyyyMMddHHmmss}.db";
+        var backupName = $"{Path.GetFileNameWithoutExtension(_options.DatabaseFileName)}-{DateTime.UtcNow:yyyy-MM-dd-HHmmss}.db";
         var destinationPath = Path.Combine(backupDirectory, backupName);
         File.Copy(sourcePath, destinationPath, overwrite: false);
 

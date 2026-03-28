@@ -1,14 +1,14 @@
 @page
 @model HardwareStore.Web.Pages.Reports.DailySalesModel
 @{
-    ViewData["Title"] = "Daily Sales Report";
+    ViewData["Title"] = "နေ့စဉ် အရောင်းအစီရင်ခံစာ";
 }
 
 <section class="panel">
     <div class="panel-header">
         <div>
-            <h2>Daily sales summary</h2>
-            <p class="muted">Print-friendly HTML report foundation with date filtering.</p>
+            <h2>နေ့စဉ် အရောင်းအစီရင်ခံစာ</h2>
+            <p class="muted">နေ့စွဲရွေးပြီး အရောင်းစာရင်းကို ကြည့်နိုင်ပါသည်။</p>
         </div>
     </div>
 
@@ -18,18 +18,18 @@
             <input asp-for="Date" type="date" />
         </div>
         <div style="align-self: end;">
-            <button type="submit">Run report</button>
+            <button type="submit">ကြည့်မည်</button>
         </div>
     </form>
 
     <table class="table">
         <tbody>
-            <tr><th>Date</th><td>@Model.Report.Date</td></tr>
-            <tr><th>Sales count</th><td>@Model.Report.SaleCount</td></tr>
-            <tr><th>Gross sales</th><td>@Model.Report.GrossSales.ToString("C")</td></tr>
-            <tr><th>Discounts</th><td>@Model.Report.DiscountAmount.ToString("C")</td></tr>
-            <tr><th>Tax</th><td>@Model.Report.TaxAmount.ToString("C")</td></tr>
-            <tr><th>Net sales</th><td>@Model.Report.NetSales.ToString("C")</td></tr>
+            <tr><th>နေ့စွဲ</th><td>@Model.Report.Date</td></tr>
+            <tr><th>အရောင်းအရေအတွက်</th><td>@Model.Report.SaleCount</td></tr>
+            <tr><th>မူလရောင်းအား</th><td>@Model.Report.GrossSales.ToString("C")</td></tr>
+            <tr><th>လျှော့ဈေး</th><td>@Model.Report.DiscountAmount.ToString("C")</td></tr>
+            <tr><th>အခွန်</th><td>@Model.Report.TaxAmount.ToString("C")</td></tr>
+            <tr><th>စုစုပေါင်း ရောင်းအား</th><td>@Model.Report.NetSales.ToString("C")</td></tr>
         </tbody>
     </table>
 </section>

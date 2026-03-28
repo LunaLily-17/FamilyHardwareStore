@@ -1,6 +1,7 @@
 using HardwareStore.Application.DTOs.Sales;
 using HardwareStore.Application.Interfaces;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace HardwareStore.Web.Pages.Sales;
@@ -8,8 +9,11 @@ namespace HardwareStore.Web.Pages.Sales;
 [Authorize(Policy = "CashierOrAdmin")]
 public sealed class ReceiptModel(ISalesService salesService, ISettingsService settingsService) : PageModel
 {
+    [BindProperty(SupportsGet = true)]
+    public bool AutoPrint { get; set; }
+
     public SaleReceiptDto? Receipt { get; private set; }
-    public string ShopName { get; private set; } = "Family Hardware Store";
+    public string ShopName { get; private set; } = "မိသားစု ဟာ့ဒ်ဝဲဆိုင်";
     public string? ShopNameMm { get; private set; }
     public string? ShopAddress { get; private set; }
     public string? ShopPhone { get; private set; }

@@ -1,23 +1,23 @@
 @page
 @model IndexModel
 @{
-    ViewData["Title"] = "Dashboard";
+    ViewData["Title"] = "ပင်မစာမျက်နှာ";
 }
 
 <div class="d-flex flex-column gap-4">
     <section class="hero-panel">
         <div>
-            <p class="eyebrow">Local-first hardware store system</p>
-            <h1>Store dashboard</h1>
-            <p class="hero-copy">Daily operations, reporting, inventory, printing, and backups in one single-PC deployment.</p>
+            <p class="eyebrow">မိသားစု ဟာ့ဒ်ဝဲဆိုင်</p>
+            <h1>ဆိုင်ပင်မစာမျက်နှာ</h1>
+            <p class="hero-copy">နေ့စဉ် အရောင်း၊ လက်ကျန်၊ ဘောင်ချာထုတ်ခြင်း နှင့် ဒေတာအရန်သိမ်းခြင်း အားလုံးကို တစ်နေရာတည်းမှာ အသုံးပြုနိုင်ပါသည်။</p>
         </div>
         <div class="hero-metrics">
             <div class="metric-card">
-                <span>Today's sales</span>
+                <span>ယနေ့ အရောင်း</span>
                 <strong>@Model.DailySales.SaleCount</strong>
             </div>
             <div class="metric-card">
-                <span>Net sales</span>
+                <span>စုစုပေါင်း ရောင်းအား</span>
                 <strong>@Model.DailySales.NetSales.ToString("C")</strong>
             </div>
         </div>
@@ -25,59 +25,59 @@
 
     <section class="module-grid">
         <a class="module-card" asp-page="/Categories/Index">
-            <h2>Categories</h2>
-            <p>Manage catalog groupings for fast navigation and reporting.</p>
+            <h2>အမျိုးအစားများ</h2>
+            <p>ပစ္စည်းအုပ်စုများကို စီမံရန်။</p>
         </a>
         <a class="module-card" asp-page="/Products/Index">
-            <h2>Products</h2>
-            <p>Catalog, SKU, barcode, and price management.</p>
+            <h2>ပစ္စည်းများ</h2>
+            <p>ပစ္စည်းအမည်၊ ဘားကုဒ်၊ ဈေးနှုန်းနှင့် လက်ကျန်ကို ကြည့်ရန်။</p>
         </a>
         <a class="module-card" asp-page="/Suppliers/Index">
-            <h2>Suppliers</h2>
-            <p>Supplier contacts and purchasing relationships.</p>
+            <h2>ပေးသွင်းသူများ</h2>
+            <p>ပေးသွင်းသူ အချက်အလက်များကို စီမံရန်။</p>
         </a>
         <a class="module-card" asp-page="/Purchases/Index">
-            <h2>Purchases</h2>
-            <p>Purchase entry and supplier restocking history.</p>
+            <h2>အဝယ်စာရင်း</h2>
+            <p>ပစ္စည်းဝယ်ယူခြင်းနှင့် ပြန်လည်ဖြည့်တင်းမှုကို ကြည့်ရန်။</p>
         </a>
         <a class="module-card" asp-page="/Sales/New">
-            <h2>Sales / POS</h2>
-            <p>Fast cashier workflow with receipt-first design.</p>
+            <h2>အရောင်း</h2>
+            <p>အရောင်းလုပ်ပြီး ဘောင်ချာကို တိုက်ရိုက်ထုတ်နိုင်ပါသည်။</p>
         </a>
         <a class="module-card" asp-page="/Reports/DailySales">
-            <h2>Reports</h2>
-            <p>Daily sales and low-stock visibility.</p>
+            <h2>အစီရင်ခံစာ</h2>
+            <p>နေ့စဉ်ရောင်းအားနှင့် လက်ကျန်နည်းသောပစ္စည်းများကို ကြည့်ရန်။</p>
         </a>
         <a class="module-card" asp-page="/Settings/Index">
-            <h2>Settings</h2>
-            <p>Store identity, receipt text, and operational options.</p>
+            <h2>ဆိုင်အချက်အလက်</h2>
+            <p>ဆိုင်အမည်၊ ဘောင်ချာစာသား စသည်တို့ကို ပြင်ဆင်ရန်။</p>
         </a>
         <a class="module-card" asp-page="/Backup/Index">
-            <h2>Backup</h2>
-            <p>Manual database backups for a local shop setup.</p>
+            <h2>ဒေတာ အရန်သိမ်းရန်</h2>
+            <p>ဒေတာဖိုင်ကို အရန်သိမ်းရန်။</p>
         </a>
     </section>
 
     <section class="panel">
         <div class="panel-header">
-            <h2>Low stock</h2>
-            <a asp-page="/Reports/DailySales">View reports</a>
+            <h2>လက်ကျန်နည်းသော ပစ္စည်းများ</h2>
+            <a asp-page="/Reports/DailySales">အစီရင်ခံစာ ကြည့်ရန်</a>
         </div>
         <div class="table-responsive">
             <table class="table table-sm align-middle">
                 <thead>
                     <tr>
-                        <th>Product</th>
-                        <th>Category</th>
-                        <th>Stock</th>
-                        <th>Reorder</th>
+                        <th>ပစ္စည်း</th>
+                        <th>အမျိုးအစား</th>
+                        <th>လက်ကျန်</th>
+                        <th>ပြန်ဖြည့်ရန် အရေအတွက်</th>
                     </tr>
                 </thead>
                 <tbody>
                 @if (Model.LowStockItems.Count == 0)
                 {
                     <tr>
-                        <td colspan="4">No low-stock items.</td>
+                        <td colspan="4">လက်ကျန်နည်းသော ပစ္စည်းမရှိပါ။</td>
                     </tr>
                 }
                 else

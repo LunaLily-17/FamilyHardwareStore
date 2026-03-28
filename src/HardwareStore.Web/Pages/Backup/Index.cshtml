@@ -1,17 +1,17 @@
 @page
 @model HardwareStore.Web.Pages.Backup.IndexModel
 @{
-    ViewData["Title"] = "Backup";
+    ViewData["Title"] = "ဒေတာ အရန်သိမ်းရန်";
 }
 
 <section class="panel">
     <div class="panel-header">
         <div>
-            <h2>Database backup</h2>
-            <p class="muted">Manual backup for the local SQLite store database.</p>
+            <h2>ဒေတာ အရန်သိမ်းရန်</h2>
+            <p class="muted">SQLite ဒေတာဖိုင်ကို အရန်သိမ်းနိုင်ပါသည်။</p>
         </div>
         <form method="post">
-            <button type="submit">Create backup</button>
+            <button type="submit">အရန်သိမ်းမည်</button>
         </form>
     </div>
     @if (!string.IsNullOrWhiteSpace(Model.StatusMessage))
@@ -21,9 +21,9 @@
     <table class="table">
         <thead>
             <tr>
-                <th>File</th>
-                <th>Created</th>
-                <th>Size</th>
+                <th>ဖိုင်</th>
+                <th>သိမ်းထားသည့်အချိန်</th>
+                <th>ဖိုင်အရွယ်အစား</th>
             </tr>
         </thead>
         <tbody>
