@@ -58,9 +58,11 @@ public sealed class LoginModel(IAuthService authService) : PageModel
     public sealed class LoginInput
     {
         [Required]
+        [Display(Name = "အသုံးပြုသူအမည်")]
         public string Username { get; set; } = string.Empty;
 
         [Required]
+        [Display(Name = "လျှို့ဝှက်နံပါတ်")]
         public string Password { get; set; } = string.Empty;
     }
 }

@@ -10,17 +10,40 @@ using Microsoft.EntityFrameworkCore;
 
 namespace HardwareStore.Web.Pages.Products;
 
-public sealed class CreateModel(IProductService productService, AppDbContext dbContext) : PageModel
+public sealed class EditModel(IProductService productService, AppDbContext dbContext) : PageModel
 {
     [BindProperty]
-    public CreateProductInput Input { get; set; } = new();
+    public EditProductInput Input { get; set; } = new();
 
     public List<SelectListItem> CategoryOptions { get; private set; } = [];
     public string? ErrorMessage { get; private set; }
 
-    public async Task OnGetAsync(CancellationToken cancellationToken)
+    public async Task<IActionResult> OnGetAsync(Guid id, CancellationToken cancellationToken)
     {
         await LoadCategoriesAsync(cancellationToken);
+
+        var product = await dbContext.Products.AsNoTracking().FirstOrDefaultAsync(x => x.Id == id, cancellationToken);
+        if (product is null)
+        {
+            return RedirectToPage("/Products/Index");
+        }
+
+        Input = new EditProductInput
+        {
+            Id = product.Id,
+            Name = product.Name,
+            NameMm = product.NameMm,
+            Sku = product.Sku,
+            Barcode = product.Barcode,
+            Description = product.Description,
+            CategoryId = product.CategoryId,
+            UnitType = product.UnitType,
+            CostPrice = product.CostPrice,
+            SalePrice = product.SalePrice,
+            ReorderLevel = product.ReorderLevel
+        };
+
+        return Page();
     }
 
     public async Task<IActionResult> OnPostAsync(CancellationToken cancellationToken)
@@ -33,6 +56,7 @@ public sealed class CreateModel(IProductService productService, AppDbContext dbC
 
         var result = await productService.UpsertAsync(new ProductUpsertDto
         {
+            Id = Input.Id,
             Name = Input.Name,
             NameMm = Input.NameMm,
             Sku = Input.Sku,
@@ -63,18 +87,23 @@ public sealed class CreateModel(IProductService productService, AppDbContext dbC
             .ToListAsync(cancellationToken);
     }
 
-    public sealed class CreateProductInput
+    public sealed class EditProductInput
     {
+        public Guid Id { get; set; }
+
         [Required]
         [Display(Name = "ပစ္စည်းအမည်")]
         public string Name { get; set; } = string.Empty;
+
         [Display(Name = "ပစ္စည်းအမည် (မြန်မာ)")]
         public string? NameMm { get; set; }
 
         [Display(Name = "ပစ္စည်းကုဒ်")]
         public string? Sku { get; set; }
+
         [Display(Name = "ဘားကုဒ်")]
         public string? Barcode { get; set; }
+
         [Display(Name = "အသေးစိတ်")]
         public string? Description { get; set; }
 

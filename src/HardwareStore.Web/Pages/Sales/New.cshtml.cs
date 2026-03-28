@@ -64,7 +64,7 @@ public sealed class NewModel(ISalesService salesService, AppDbContext dbContext)
             return Page();
         }
 
-        return RedirectToPage("/Sales/Receipt", new { receiptNumber = result.ReceiptNumber });
+        return RedirectToPage("/Sales/Receipt", new { receiptNumber = result.ReceiptNumber, autoPrint = true });
     }
 
     private async Task LoadProductsAsync(CancellationToken cancellationToken)
@@ -81,13 +81,18 @@ public sealed class NewModel(ISalesService salesService, AppDbContext dbContext)
 
     public sealed class CreateSaleInput
     {
-        [Display(Name = "Product")]
+        [Display(Name = "ပစ္စည်း")]
         public Guid ProductId { get; set; }
 
+        [Display(Name = "အရေအတွက်")]
         public decimal Quantity { get; set; } = 1;
+        [Display(Name = "ငွေပေးချေမှု")]
         public PaymentMethod PaymentMethod { get; set; } = PaymentMethod.Cash;
+        [Display(Name = "လျှော့ဈေး")]
         public decimal DiscountAmount { get; set; }
+        [Display(Name = "အခွန်")]
         public decimal TaxAmount { get; set; }
+        [Display(Name = "မှတ်ချက်")]
         public string? Notes { get; set; }
     }
 }

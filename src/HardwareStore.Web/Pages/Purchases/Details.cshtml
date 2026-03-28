@@ -1,13 +1,13 @@
 @page "{id:guid}"
 @model HardwareStore.Web.Pages.Purchases.DetailsModel
 @{
-    ViewData["Title"] = "Purchase Details";
+    ViewData["Title"] = "အဝယ်အသေးစိတ်";
 }
 
 <section class="panel">
     @if (Model.Purchase is null)
     {
-        <h2>Purchase not found</h2>
+        <h2>အဝယ်စာရင်း မတွေ့ပါ</h2>
     }
     else
     {
@@ -19,23 +19,23 @@
         </div>
         <table class="table">
             <tbody>
-                <tr><th>Date</th><td>@Model.Purchase.PurchaseDateUtc.ToLocalTime()</td></tr>
-                <tr><th>Status</th><td>@Model.Purchase.Status</td></tr>
-                <tr><th>Subtotal</th><td>@Model.Purchase.Subtotal.ToString("C")</td></tr>
-                <tr><th>Tax</th><td>@Model.Purchase.TaxAmount.ToString("C")</td></tr>
-                <tr><th>Total</th><td>@Model.Purchase.TotalAmount.ToString("C")</td></tr>
-                <tr><th>Notes</th><td>@Model.Purchase.Notes</td></tr>
+                <tr><th>နေ့စွဲ</th><td>@Model.Purchase.PurchaseDateUtc.ToLocalTime()</td></tr>
+                <tr><th>အခြေအနေ</th><td>@Model.Purchase.Status</td></tr>
+                <tr><th>မူလစုစုပေါင်း</th><td>@Model.Purchase.Subtotal.ToString("C")</td></tr>
+                <tr><th>အခွန်</th><td>@Model.Purchase.TaxAmount.ToString("C")</td></tr>
+                <tr><th>စုစုပေါင်း</th><td>@Model.Purchase.TotalAmount.ToString("C")</td></tr>
+                <tr><th>မှတ်ချက်</th><td>@Model.Purchase.Notes</td></tr>
             </tbody>
         </table>
 
-        <h3>Lines</h3>
+        <h3>ပစ္စည်းများ</h3>
         <table class="table">
             <thead>
                 <tr>
-                    <th>Product</th>
-                    <th>Qty</th>
-                    <th>Unit cost</th>
-                    <th>Total</th>
+                    <th>ပစ္စည်း</th>
+                    <th>အရေအတွက်</th>
+                    <th>တစ်ခုဈေး</th>
+                    <th>စုစုပေါင်း</th>
                 </tr>
             </thead>
             <tbody>

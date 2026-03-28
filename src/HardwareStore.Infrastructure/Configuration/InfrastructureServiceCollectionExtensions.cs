@@ -21,6 +21,7 @@ public static class InfrastructureServiceCollectionExtensions
         Directory.CreateDirectory(dataDirectory);
         Directory.CreateDirectory(ResolvePath(storageOptions.BackupDirectory));
         Directory.CreateDirectory(ResolvePath(storageOptions.LogDirectory));
+        Directory.CreateDirectory(ResolvePath(storageOptions.ExportDirectory));
 
         var connectionString = configuration.GetConnectionString("DefaultConnection");
         if (string.IsNullOrWhiteSpace(connectionString))
@@ -33,6 +34,7 @@ public static class InfrastructureServiceCollectionExtensions
         services.AddScoped<IAppDbContext>(provider => provider.GetRequiredService<AppDbContext>());
         services.AddScoped<IPasswordHasher, Pbkdf2PasswordHasher>();
         services.AddScoped<IBackupService, BackupService>();
+        services.AddScoped<IExportService, CsvExportService>();
 
         return services;
     }

@@ -1,24 +1,24 @@
 @page
 @model HardwareStore.Web.Pages.Suppliers.IndexModel
 @{
-    ViewData["Title"] = "Suppliers";
+    ViewData["Title"] = "ပေးသွင်းသူများ";
 }
 
 <section class="panel">
     <div class="panel-header">
         <div>
-            <h2>Suppliers</h2>
-            <p class="muted">Supplier management for purchasing and restocking.</p>
+            <h2>ပေးသွင်းသူစာရင်း</h2>
+            <p class="muted">ဝယ်ယူမှုနှင့် ပေးသွင်းသူ အချက်အလက်များကို စီမံနိုင်ပါသည်။</p>
         </div>
-        <a class="button" asp-page="/Suppliers/Create">Add supplier</a>
+        <a class="button" asp-page="/Suppliers/Create">အသစ်ထည့်မည်</a>
     </div>
     <table class="table">
         <thead>
             <tr>
-                <th>Name</th>
-                <th>Contact</th>
-                <th>Phone</th>
-                <th>Email</th>
+                <th>အမည်</th>
+                <th>ဆက်သွယ်ရမည့်သူ</th>
+                <th>ဖုန်း</th>
+                <th>အီးမေးလ်</th>
             </tr>
         </thead>
         <tbody>

@@ -1,14 +1,14 @@
 @page
 @model HardwareStore.Web.Pages.Categories.CreateModel
 @{
-    ViewData["Title"] = "Create Category";
+    ViewData["Title"] = "အမျိုးအစားအသစ်";
 }
 
 <section class="panel">
     <div class="panel-header">
         <div>
-            <h2>New category</h2>
-            <p class="muted">Keep product groupings simple and readable.</p>
+            <h2>အမျိုးအစားအသစ်</h2>
+            <p class="muted">ပစ္စည်းများကို အုပ်စုလိုက် စီရန် အသုံးပြုပါ။</p>
         </div>
     </div>
     <form method="post" class="form-grid">
@@ -27,7 +27,7 @@
         <div class="field">
             <label>
                 <input asp-for="Input.IsActive" type="checkbox" />
-                Active
+                အသုံးပြုနေ
             </label>
         </div>
         @if (!string.IsNullOrWhiteSpace(Model.ErrorMessage))
@@ -35,7 +35,7 @@
             <p class="error-text" style="grid-column: 1 / -1;">@Model.ErrorMessage</p>
         }
         <div style="grid-column: 1 / -1;">
-            <button type="submit">Save category</button>
+            <button type="submit">သိမ်းမည်</button>
         </div>
     </form>
 </section>

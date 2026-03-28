@@ -1,26 +1,32 @@
 @page
 @model HardwareStore.Web.Pages.Products.IndexModel
 @{
-    ViewData["Title"] = "Products";
+    ViewData["Title"] = "ပစ္စည်းများ";
 }
 
 <section class="panel">
     <div class="panel-header">
         <div>
-            <h2>Product catalog</h2>
-            <p class="muted">Core stock, barcode, price, and reorder data.</p>
+            <h2>ပစ္စည်းစာရင်း</h2>
+            <p class="muted">ပစ္စည်းအမည်၊ ဈေးနှုန်း၊ ဘားကုဒ်နှင့် လက်ကျန်ကို ကြည့်နိုင်ပါသည်။</p>
         </div>
-        <a class="button" asp-page="/Products/Create">Add product</a>
+        <div style="display: flex; gap: 0.75rem; flex-wrap: wrap;">
+            <form method="post" asp-page-handler="ExportCsv">
+                <button type="submit" class="button secondary">CSV ထုတ်မည်</button>
+            </form>
+            <a class="button" asp-page="/Products/Create">ပစ္စည်းထည့်မည်</a>
+        </div>
     </div>
     <table class="table">
         <thead>
             <tr>
-                <th>Name</th>
-                <th>SKU</th>
-                <th>Category</th>
-                <th>Unit</th>
-                <th>Price</th>
-                <th>Stock</th>
+                <th>ပစ္စည်းအမည်</th>
+                <th>ပစ္စည်းကုဒ်</th>
+                <th>အမျိုးအစား</th>
+                <th>အတိုင်းအတာ</th>
+                <th>ရောင်းဈေး</th>
+                <th>လက်ကျန်</th>
+                <th></th>
             </tr>
         </thead>
         <tbody>
@@ -45,6 +51,7 @@
                 <td>@product.UnitType</td>
                 <td>@product.SalePrice.ToString("C")</td>
                 <td>@product.StockOnHand</td>
+                <td><a asp-page="/Products/Edit" asp-route-id="@product.Id">ပြင်မည်</a></td>
             </tr>
         }
         </tbody>

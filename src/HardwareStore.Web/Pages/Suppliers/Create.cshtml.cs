@@ -45,13 +45,17 @@ public sealed class CreateModel(ISupplierService supplierService) : PageModel
     public sealed class CreateSupplierInput
     {
         [Required]
+        [Display(Name = "အမည်")]
         public string Name { get; set; } = string.Empty;
 
-        [Display(Name = "Contact person")]
+        [Display(Name = "ဆက်သွယ်ရမည့်သူ")]
         public string? ContactPerson { get; set; }
 
+        [Display(Name = "ဖုန်း")]
         public string? Phone { get; set; }
+        [Display(Name = "လိပ်စာ")]
         public string? Address { get; set; }
+        [Display(Name = "အီးမေးလ်")]
         public string? Email { get; set; }
     }
 }

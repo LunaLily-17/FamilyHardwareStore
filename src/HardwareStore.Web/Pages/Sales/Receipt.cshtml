@@ -1,13 +1,13 @@
 @page "{receiptNumber}"
 @model HardwareStore.Web.Pages.Sales.ReceiptModel
 @{
-    ViewData["Title"] = "Receipt";
+    ViewData["Title"] = "ဘောင်ချာ";
 }
 
 @if (Model.Receipt is null)
 {
     <section class="panel">
-        <h2>Receipt not found</h2>
+        <h2>ဘောင်ချာ မတွေ့ပါ</h2>
     </section>
 }
 else
@@ -15,11 +15,11 @@ else
     <section class="panel receipt-card">
         <div class="panel-header no-print">
             <div>
-                <h2>Receipt @Model.Receipt.ReceiptNumber</h2>
-                <p class="muted">Browser-print friendly thermal layout.</p>
+                <h2>ဘောင်ချာ @Model.Receipt.ReceiptNumber</h2>
+                <p class="muted">အရောင်းပြီးပါပြီ။ ဘောင်ချာကို တိုက်ရိုက်ထုတ်နိုင်ပါသည်။</p>
             </div>
             <div class="topbar-user">
-                <button type="button" onclick="window.print()">Print</button>
+                <button type="button" onclick="window.print()">ဘောင်ချာထုတ်မည်</button>
             </div>
         </div>
 
@@ -35,18 +35,18 @@ else
             </div>
 
             <div class="receipt-meta">
-                <p>Receipt: @Model.Receipt.ReceiptNumber</p>
-                <p>Date: @Model.Receipt.SaleDateUtc.ToLocalTime()</p>
-                <p>Cashier: @Model.Receipt.CashierName</p>
+                <p>ဘောင်ချာနံပါတ်: @Model.Receipt.ReceiptNumber</p>
+                <p>နေ့စွဲ: @Model.Receipt.SaleDateUtc.ToLocalTime()</p>
+                <p>ငွေရှင်းသူ: @Model.Receipt.CashierName</p>
             </div>
 
             <table class="table receipt-table">
                 <thead>
                     <tr>
-                        <th>Item</th>
-                        <th>Qty</th>
-                        <th>Price</th>
-                        <th>Total</th>
+                        <th>ပစ္စည်း</th>
+                        <th>အရေအတွက်</th>
+                        <th>ဈေးနှုန်း</th>
+                        <th>စုစုပေါင်း</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -69,7 +69,7 @@ else
             </table>
 
             <div class="receipt-total">
-                <strong>Total: @Model.Receipt.TotalAmount.ToString("C")</strong>
+                <strong>စုစုပေါင်း: @Model.Receipt.TotalAmount.ToString("C")</strong>
             </div>
 
             @if (!string.IsNullOrWhiteSpace(Model.ReceiptFooter))
@@ -78,4 +78,15 @@ else
             }
         </div>
     </section>
+}
+
+@section Scripts {
+    @if (Model.AutoPrint && Model.Receipt is not null)
+    {
+        <script>
+            window.addEventListener("load", function () {
+                setTimeout(function () { window.print(); }, 300);
+            });
+        </script>
+    }
 }

@@ -75,15 +75,19 @@ public sealed class CreateModel(IPurchaseService purchaseService, AppDbContext d
 
     public sealed class CreatePurchaseInput
     {
-        [Display(Name = "Supplier")]
+        [Display(Name = "ပေးသွင်းသူ")]
         public Guid SupplierId { get; set; }
 
-        [Display(Name = "Product")]
+        [Display(Name = "ပစ္စည်း")]
         public Guid ProductId { get; set; }
 
+        [Display(Name = "အရေအတွက်")]
         public decimal Quantity { get; set; }
+        [Display(Name = "တစ်ခုဈေး")]
         public decimal UnitCost { get; set; }
+        [Display(Name = "အခွန်")]
         public decimal TaxAmount { get; set; }
+        [Display(Name = "မှတ်ချက်")]
         public string? Notes { get; set; }
     }
 }

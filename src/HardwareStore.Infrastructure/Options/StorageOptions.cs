@@ -8,4 +8,5 @@ public sealed class StorageOptions
     public string BackupDirectory { get; set; } = "backups";
     public string DatabaseFileName { get; set; } = "hardwarestore.db";
     public string LogDirectory { get; set; } = "logs";
+    public string ExportDirectory { get; set; } = "exports";
 }
