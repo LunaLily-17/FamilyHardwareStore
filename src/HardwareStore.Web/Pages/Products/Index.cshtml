@@ -10,7 +10,12 @@
             <h2>ပစ္စည်းစာရင်း</h2>
             <p class="muted">ပစ္စည်းအမည်၊ ဈေးနှုန်း၊ ဘားကုဒ်နှင့် လက်ကျန်ကို ကြည့်နိုင်ပါသည်။</p>
         </div>
-        <a class="button" asp-page="/Products/Create">ပစ္စည်းထည့်မည်</a>
+        <div style="display: flex; gap: 0.75rem; flex-wrap: wrap;">
+            <form method="post" asp-page-handler="ExportCsv">
+                <button type="submit" class="button secondary">CSV ထုတ်မည်</button>
+            </form>
+            <a class="button" asp-page="/Products/Create">ပစ္စည်းထည့်မည်</a>
+        </div>
     </div>
     <table class="table">
         <thead>

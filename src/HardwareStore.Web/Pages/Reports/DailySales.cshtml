@@ -10,6 +10,10 @@
             <h2>နေ့စဉ် အရောင်းအစီရင်ခံစာ</h2>
             <p class="muted">နေ့စွဲရွေးပြီး အရောင်းစာရင်းကို ကြည့်နိုင်ပါသည်။</p>
         </div>
+        <form method="post" asp-page-handler="ExportCsv">
+            <input type="hidden" asp-for="Date" />
+            <button type="submit" class="button secondary">CSV ထုတ်မည်</button>
+        </form>
     </div>
 
     <form method="get" class="form-grid" style="margin-bottom: 1rem;">
