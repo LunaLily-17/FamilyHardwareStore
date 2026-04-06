@@ -1,0 +1,49 @@
+@page
+@model HardwareStore.Web.Pages.Sales.HistoryModel
+@{
+    ViewData["Title"] = "အရောင်းမှတ်တမ်း";
+}
+
+<section class="panel">
+    <div class="panel-header">
+        <div>
+            <h2>အရောင်းမှတ်တမ်း</h2>
+            <p class="muted">နောက်ဆုံးအရောင်းများကို ကြည့်ပြီး ဘောင်ချာကို ပြန်ဖွင့်နိုင်ပါသည်။</p>
+        </div>
+    </div>
+
+    @if (Model.Sales.Count == 0)
+    {
+        <p class="muted">အရောင်းမှတ်တမ်း မရှိသေးပါ။</p>
+    }
+    else
+    {
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>ဘောင်ချာနံပါတ်</th>
+                    <th>နေ့စွဲ</th>
+                    <th>ငွေရှင်းသူ</th>
+                    <th>ပစ္စည်းအရေအတွက်</th>
+                    <th>အခြေအနေ</th>
+                    <th>စုစုပေါင်း</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+            @foreach (var sale in Model.Sales)
+            {
+                <tr>
+                    <td>@sale.ReceiptNumber</td>
+                    <td>@sale.SaleDateUtc.ToLocalTime()</td>
+                    <td>@sale.CashierName</td>
+                    <td>@sale.ItemCount</td>
+                    <td>@sale.Status</td>
+                    <td>@sale.TotalAmount.ToString("C")</td>
+                    <td><a asp-page="/Sales/Receipt" asp-route-receiptNumber="@sale.ReceiptNumber">ကြည့်မည်</a></td>
+                </tr>
+            }
+            </tbody>
+        </table>
+    }
+</section>
