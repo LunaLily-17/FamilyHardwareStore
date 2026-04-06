@@ -45,8 +45,10 @@ builder.Services.AddRazorPages(options =>
     options.Conventions.AllowAnonymousToPage("/Account/Login");
     options.Conventions.AuthorizePage("/Products/Index", "CashierOrAdmin");
     options.Conventions.AuthorizePage("/Sales/New", "CashierOrAdmin");
+    options.Conventions.AuthorizePage("/Sales/History", "CashierOrAdmin");
     options.Conventions.AuthorizePage("/Sales/Receipt", "CashierOrAdmin");
     options.Conventions.AuthorizePage("/Sales/Reprint", "CashierOrAdmin");
+    options.Conventions.AuthorizePage("/Products/Edit", "AdminOnly");
     options.Conventions.AuthorizeFolder("/Settings", "AdminOnly");
     options.Conventions.AuthorizeFolder("/Backup", "AdminOnly");
     options.Conventions.AuthorizeFolder("/Categories", "AdminOnly");

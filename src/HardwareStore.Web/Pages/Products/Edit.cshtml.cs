@@ -3,6 +3,7 @@ using HardwareStore.Application.DTOs.Products;
 using HardwareStore.Application.Interfaces;
 using HardwareStore.Domain.Enums;
 using HardwareStore.Infrastructure.Persistence;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -10,6 +11,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace HardwareStore.Web.Pages.Products;
 
+[Authorize(Policy = "AdminOnly")]
 public sealed class EditModel(IProductService productService, AppDbContext dbContext) : PageModel
 {
     [BindProperty]

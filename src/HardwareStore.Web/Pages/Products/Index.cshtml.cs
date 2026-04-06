@@ -1,5 +1,6 @@
 using HardwareStore.Application.DTOs.Products;
 using HardwareStore.Application.Interfaces;
+using HardwareStore.Domain.Enums;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
@@ -8,6 +9,7 @@ namespace HardwareStore.Web.Pages.Products;
 public sealed class IndexModel(IProductService productService, IExportService exportService) : PageModel
 {
     public IReadOnlyList<ProductListItemDto> Products { get; private set; } = [];
+    public bool CanEditProducts => User.IsInRole(UserRole.Admin.ToString());
 
     public async Task OnGetAsync(CancellationToken cancellationToken)
     {

@@ -25,13 +25,15 @@ else
 
         <div class="receipt-sheet">
             <div class="receipt-header">
-                <h2>@Model.ShopName</h2>
-                @if (!string.IsNullOrWhiteSpace(Model.ShopNameMm))
-                {
-                    <p class="mm-text">@Model.ShopNameMm</p>
-                }
-                <p>@Model.ShopAddress</p>
-                <p>@Model.ShopPhone</p>
+                <h2 class="mm-text">@Model.ShopName</h2>
+                <p class="mm-text receipt-address">@Model.ShopAddress</p>
+                <div class="receipt-phones">
+                    <p>ဖုန်း -</p>
+                    @foreach (var phoneNumber in Model.ShopPhoneNumbers)
+                    {
+                        <p>@phoneNumber</p>
+                    }
+                </div>
             </div>
 
             <div class="receipt-meta">
@@ -74,7 +76,7 @@ else
 
             @if (!string.IsNullOrWhiteSpace(Model.ReceiptFooter))
             {
-                <p class="receipt-footer">@Model.ReceiptFooter</p>
+                <p class="receipt-footer mm-text">@Model.ReceiptFooter</p>
             }
         </div>
     </section>

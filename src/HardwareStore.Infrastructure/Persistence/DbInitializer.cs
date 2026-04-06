@@ -64,10 +64,10 @@ public static class DbInitializer
         {
             await dbContext.AppSettings.AddRangeAsync(
                 [
-                    new AppSetting { Key = "ShopName", Value = "မိသားစု ဟာ့ဒ်ဝဲဆိုင်", Description = "ဘောင်ချာနှင့် အစီရင်ခံစာများတွင် ပြသမည့် ဆိုင်အမည်" },
-                    new AppSetting { Key = "ShopNameMm", Value = "မိသားစု ဟာ့ဒ်ဝဲဆိုင်", Description = "Burmese shop name for receipts." },
-                    new AppSetting { Key = "ShopPhone", Value = "+44 0000 000000", Description = "Printed on receipts." },
-                    new AppSetting { Key = "ShopAddress", Value = "Main Street", Description = "Printed on receipts." },
+                    new AppSetting { Key = "ShopName", Value = "မိသားစု အိမ်ဆောက်ပစ္စည်းဆိုင်", Description = "ဘောင်ချာနှင့် အစီရင်ခံစာများတွင် ပြသမည့် ဆိုင်အမည်" },
+                    new AppSetting { Key = "ShopNameMm", Value = "မိသားစု အိမ်ဆောက်ပစ္စည်းဆိုင်", Description = "Burmese shop name for receipts." },
+                    new AppSetting { Key = "ShopPhone", Value = "095344098\n09752344098\n09752744098\n09688373092", Description = "Printed on receipts." },
+                    new AppSetting { Key = "ShopAddress", Value = "ရန်ကုန်-မန္တလေးလမ်းဟောင်း နှစ်ဆောင်မြိုင် (ရွှေဝါဆီဆိုင်ရှေ့) တောင်ငူမြို့", Description = "Printed on receipts." },
                     new AppSetting { Key = "ReceiptFooter", Value = "Thank you for shopping with us.", Description = "Receipt footer text." }
                 ],
                 cancellationToken);

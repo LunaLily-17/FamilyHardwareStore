@@ -333,7 +333,7 @@ button[type="submit"]:focus-visible {
   max-width: 360px;
   margin: 0 auto;
   background: #fff;
-  padding: 1rem;
+  padding: 1.25rem 1rem;
   border: 1px dashed rgba(216, 31, 38, 0.28);
 }
 
@@ -344,9 +344,48 @@ button[type="submit"]:focus-visible {
   text-align: center;
 }
 
+.receipt-header h2,
+.receipt-header p,
+.receipt-meta p,
+.receipt-footer {
+  margin: 0;
+}
+
+.receipt-address {
+  margin-top: 0.35rem !important;
+  line-height: 1.6;
+}
+
+.receipt-phones {
+  margin-top: 0.5rem;
+}
+
+.receipt-phones p + p {
+  margin-top: 0.15rem;
+}
+
+.receipt-meta {
+  display: grid;
+  gap: 0.25rem;
+  margin-top: 0.85rem;
+}
+
+.receipt-table {
+  margin-top: 0.85rem;
+}
+
 .receipt-table th,
 .receipt-table td {
   font-size: 0.92rem;
+}
+
+.receipt-total {
+  margin-top: 0.85rem;
+}
+
+.receipt-footer {
+  margin-top: 0.85rem;
+  line-height: 1.55;
 }
 
 .no-print {
